@@ -91,16 +91,17 @@ public class CandidatoServiceImpl implements CandidatoService {
 		endereco = repositorioEndereco.save(endereco);
 		//salvar usuario
 		Usuario usuario = new Usuario();
+		usuario.setId(candidato.getUsuario().getId());
 		usuario.setLogin(candidato.getCpf().replace(".", "").replace("-", ""));
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		usuario.setSenha(passwordEncoder.encode(candidato.getUsuario().getSenha())); 
-		
+		usuario.setSenha(passwordEncoder.encode(candidato.getUsuario().getSenha())); 	
 		usuario.setAtivo(true);
-		usuario.setPerfilAcesso("CANDIDATO");
+		usuario.setPerfilAcesso("ROLE_USER");
 		usuario = repositorioUsuario.save(usuario);
 		//salvar candidato
 		Candidato novoCandidato = new Candidato();
+		novoCandidato.setId(candidato.getId());
 		novoCandidato.setCpf(candidato.getCpf());
 		novoCandidato.setNome(candidato.getNome());
 		novoCandidato.setEstadoCivil(candidato.getEstadoCivil());
@@ -125,22 +126,28 @@ public class CandidatoServiceImpl implements CandidatoService {
 		novoCandidato.setDataUltimaAtualizacao(new Date());
 		novoCandidato = repositorioCandidato.save(novoCandidato);
 		//salvar experiencia profissional
-		for (ExperienciaProfissional experienciaProfissional : experienciasProfissionais) {
-			ExperienciaProfissional ep = experienciaProfissional;
-			ep.setCandidato(novoCandidato);
-			repositorioExperienciaProfissional.save(ep);
+		if(experienciasProfissionais != null) {
+			for (ExperienciaProfissional experienciaProfissional : experienciasProfissionais) {
+				ExperienciaProfissional ep = experienciaProfissional;
+				ep.setCandidato(novoCandidato);
+				repositorioExperienciaProfissional.save(ep);
+			}
 		}
 		//salvar informacao academica
-		for (FormacaoAcademica formacaoAcademica : formacoesAcademicas) {
-			FormacaoAcademica fa = formacaoAcademica;
-			fa.setCandidato(novoCandidato);
-			repositorioFormacaoAcademica.save(fa);
+		if(formacoesAcademicas != null) {
+			for (FormacaoAcademica formacaoAcademica : formacoesAcademicas) {
+				FormacaoAcademica fa = formacaoAcademica;
+				fa.setCandidato(novoCandidato);
+				repositorioFormacaoAcademica.save(fa);
+			}
 		}
 		//salvar cursos
-		for (Curso curso : cursos) {
-			Curso c = curso;
-			c.setCandidato(novoCandidato);
-			repositorioCurso.save(c);
+		if(cursos != null) {
+			for (Curso curso : cursos) {
+				Curso c = curso;
+				c.setCandidato(novoCandidato);
+				repositorioCurso.save(c);
+			}
 		}
 		return repositorioCandidato.findOne(novoCandidato.getId());
 	}
@@ -157,12 +164,32 @@ public class CandidatoServiceImpl implements CandidatoService {
 
 	@Override
 	public Candidato pesquisarCandidatoPorCpf(String cpf) {
-		Candidato candidato = repositorioCandidato.findByCpf(cpf);
-		Usuario usuario = candidato.getUsuario();
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		usuario.setSenha(passwordEncoder.encode("unimed")); 
-		repositorioUsuario.save(usuario);
 		return repositorioCandidato.findByCpf(cpf);
+	}
+
+	@Override
+	public Candidato pesquisarCandidatoPorLogin(String cpf) {
+		return repositorioCandidato.findByUsuario_Login(cpf);
+	}
+
+	@Override
+	public void deletarFormacaoAcademica(Long id) {
+		repositorioFormacaoAcademica.delete(id);
+	}
+
+	@Override
+	public void deletarExperienciaProfissional(Long id) {
+		repositorioExperienciaProfissional.delete(id);
+	}
+
+	@Override
+	public void deletarCurso(Long id) {
+		repositorioCurso.delete(id);
+	}
+
+	@Override
+	public List<Candidato> pesquisarTodos() {
+		return repositorioCandidato.findAll(new Sort("dataCadastro"));
 	}
 	
 	

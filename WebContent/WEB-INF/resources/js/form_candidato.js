@@ -1,7 +1,28 @@
 
 $(document).ready(function(){
 
+    var codigoUf = $('#estado').val();
+    var codCidade = $('#cidadeEscolhida').val();
+    if(codigoUf != '' && codigoUf != null){
+        $.ajax({
+            method: 'GET',
+            url: '/trabalheconosco/postoAtendimento/pesquisarCidadePorEstado/'+codigoUf,
+            dataType: "json",
+            beforeSend: function(){
+            },
+            success: function (result) {
+                $.each(result, function() {
+                    seleciona = (codCidade == this.codigoIbge) ? 'selected' : '';
 
+                    option = "<option value='"+this.codigoIbge+"' "+seleciona+">"+this.nome+"</option>";
+                    $('#cidade').append(option);
+                });
+            },
+            error: function () {
+                alert("Ocorreu um erro no processamento dos dados.");
+            }
+        });
+    }
 });
 
 // adicionar experiencia profissional
@@ -14,7 +35,7 @@ function adicionarExperienciaProfissional() {
 
     if (nomeEmpresa != null && nomeEmpresa != '' && nomeCargo != null && nomeCargo != '' && dataInicio != null && dataInicio != '' ) {
        if (contadorExperienciasProfissionais < 3) {
-             var row = "<tr id='"+contadorExperienciasProfissionais+"'>";
+             var row = "<tr id='experienciaProfissional"+contadorExperienciasProfissionais+"'>";
                 row += "<input type='hidden' name=experienciasProfissionais["+contadorExperienciasProfissionais+"].nomeEmpresa value='"+nomeEmpresa+"'>";
                 row += "<input type='hidden' name=experienciasProfissionais["+contadorExperienciasProfissionais+"].nomeCargo value='"+nomeCargo+"'>";
                 row += "<input type='hidden' name=experienciasProfissionais["+contadorExperienciasProfissionais+"].dataInicio value="+dataInicio+">";
@@ -24,7 +45,7 @@ function adicionarExperienciaProfissional() {
                 row += "<td>" + dataInicio + "</td>";
                 row += "<td>" + dataFim + "</td>";
                 row += "<td>";
-                row += '<a class="btn btn-sm btn-danger" onclick="deletarFormacaoAcademica('+contadorExperienciasProfissionais+',0)"><span class="fas fa-trash-alt"></span></a>';
+                row += '<a class="btn btn-sm btn-danger" onclick="deletarExperienciaProfissional('+contadorExperienciasProfissionais+',0)"><span class="fas fa-trash-alt"></span></a>';
                 row += "</td>";
                 row += "</tr>";
                 $('#tabelaExperienciaProfissional').append(row);
@@ -113,3 +134,66 @@ function adicionarCurso() {
         alert("ALERTA! ESTÁ FALTANDO ALGUMA INFORMAÇÃO.");
     }
 };
+
+function deletarFormacaoAcademica(contador, id) {
+   if (parseInt(id) === 0) {
+        $('#formacaoAcademica'+contador).remove();
+    }else{
+        $.ajax({
+            url: '/trabalheconosco/candidato/deletar/formacaoAcademica/'+id,
+            type: "GET",
+            dataType: 'json',
+            beforeSend: function(){
+                $('#formacaoAcademica'+contador).remove();
+            },
+            success: function (result) {
+            },
+            error: function () {
+                alert("Ocorreu um erro no processamento dos dados.");
+            }
+        });
+        $('#formacaoAcademica'+contador).remove();
+    }
+};
+
+function deletarCurso(contador, id) {
+    if (parseInt(id) === 0) {
+        $('#curso'+contador).remove();
+    }else{
+        $.ajax({
+            url: '/trabalheconosco/candidato/deletar/curso/'+id,
+            type: "GET",
+            dataType: 'json',
+            beforeSend: function(){
+                $('#curso'+contador).remove();
+            },
+            success: function (result) {
+            },
+            error: function () {
+                alert("Ocorreu um erro no processamento dos dados.");
+            }
+        });
+        $('#curso'+contador).remove();
+    }
+};
+
+function deletarExperienciaProfissional(contador, id) {
+    if (parseInt(id) === 0) {
+            $('#experienciaProfissional'+contador).remove();
+        }else{
+            $.ajax({
+                url: '/trabalheconosco/candidato/deletar/experienciaProfissional/'+id,
+                type: "GET",
+                dataType: 'json',
+                beforeSend: function(){
+                    $('#experienciaProfissional'+contador).remove();
+                },
+                success: function (result) {
+                },
+                error: function () {
+                    alert("Ocorreu um erro no processamento dos dados.");
+                }
+            });
+            $('#experienciaProfissional'+contador).remove();
+        }
+}

@@ -17,14 +17,15 @@
 						<h6 class="card-subtitle mb-2 text-muted text-center">Faça o seu cadastro e tenha a oportunidade de participar do processo de seleção.</h6>
 						<form class="form"  action="/trabalheconosco/candidato/cadastrar" method="post">
 							<div class="form-group">
-											<label for="cpf">CPF</label>
-											<input type="text" class="form-control cpf" id="cpf" name="cpf"/>
-										</div>
+								<label for="cpf">CPF</label>
+								<input type="text" class="form-control cpf" id="cpf" name="cpf"/>
+							</div>
 							<div class="form-group">
-											<label for="email">E-mail</label>
-											<input type="text" class="form-control" id="email" name="contato.email"/>
-										</div> 
+								<label for="email">E-mail</label>
+								<input type="text" class="form-control" id="email" name="contato.email"/>
+							</div> 
 							<div class="form-group">
+								<span>${mensagem}</span><br/>
 								<button type="submit" class="btn btn-dark">Cadastrar</button>
 								<br/>
 							</div>

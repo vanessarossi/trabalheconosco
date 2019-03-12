@@ -9,11 +9,14 @@
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCSS"></spring:url>
 <spring:url value="https://use.fontawesome.com/releases/v5.5.0/css/all.css" var="fontawesomeCSS"></spring:url>
 <spring:url value="/resources/css/principal.css" var="principalCSS"></spring:url>
+<spring:url value="/resources/css/datatables.css" var="dataTablesCSS"></spring:url>
 
 <spring:url value="/resources/js/comum/jquery.min.js" var="jqueryJS"></spring:url>
 <spring:url value="/resources/js/comum/bootstrap.min.js" var="bootstrapJS"></spring:url>
 <spring:url value="/resources/js/comum/jquery.mask.js" var="jqueryMaskJS"></spring:url>
 <spring:url value="/resources/js/comum/mask.js" var="maskJS"></spring:url>
+<spring:url value="/resources/js/comum/datatables.min.js" var="dataTablesJS"></spring:url>
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/resources/img/logo_unimed.png" type="image/x-icon"/>
@@ -23,11 +26,14 @@
 <link href="${bootstrapCSS}" rel="stylesheet">
 <link href="${fontawesomeCSS}" rel="stylesheet">
 <link href="${principalCSS}" rel="stylesheet">
+<link href="${dataTablesCSS}" rel="stylesheet">
+
 
 <script type="text/javascript" src="${jqueryJS}"></script>
 <script type="text/javascript" src="${bootstrapJS}"></script>
 <script type="text/javascript" src="${jqueryMaskJS}"></script>
 <script type="text/javascript" src="${maskJS}"></script>
+<script type="text/javascript" src="${dataTablesJS}"></script>
 </head>
 <body>
 	<div>

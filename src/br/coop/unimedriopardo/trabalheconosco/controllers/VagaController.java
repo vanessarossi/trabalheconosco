@@ -30,6 +30,13 @@ public class VagaController {
 		return "vaga.index.tiles";
 	}
 	
+	@GetMapping("/lista/aberta")
+	public String listarAbertas(Model model) {
+		List<Vaga> vagas = vagaService.listarVagasAbertas();
+		model.addAttribute("vagas",vagas);
+		return "vaga.listagem.tiles";
+	}
+	
 	@GetMapping("/formulario")
 	public String formulario(Model model) {
 		model.addAttribute("cargos", vagaService.listarCargo());

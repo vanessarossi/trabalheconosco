@@ -109,7 +109,7 @@
 		</div> 
 		<div>
 			<input type="hidden" class="form-control" id="id" name="id" value="${vaga.id}"/>
-			<a href="/trabalheconosco/vaga/listagem" class="btn btn-warning">Cancelar</a>
+			<a href="/trabalheconosco/vaga/listagem" class="btn btn-danger">Cancelar</a>
 			<input type="submit" value="Salvar" class="btn btn-success"/>
 		</div>
 	</form>

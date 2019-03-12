@@ -17,5 +17,12 @@ public interface CandidatoService {
 	public Candidato pesquisarCandidatoPorUsuario(Usuario usuario);
 	public Candidato pesquisarCandidatoPorId(Long id);
 	public Candidato pesquisarCandidatoPorCpf(String cpf);
+	public Candidato pesquisarCandidatoPorLogin(String cpf);
+	
+	public void deletarFormacaoAcademica(Long id);
+	public void deletarExperienciaProfissional(Long id);
+	public void deletarCurso(Long id);
+	public List<Candidato> pesquisarTodos();
+
 	
 }

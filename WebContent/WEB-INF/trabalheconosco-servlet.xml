@@ -76,6 +76,12 @@
 	<sec:http pattern="/candidato/cadastrar" security="none"></sec:http>
 	<sec:http use-expressions="true" auto-config="true">
 	<sec:intercept-url pattern="/usuario/**" access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/cargo/**" access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/postoAtendimento/listagem/**" access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/postoAtendimento/formulario/**" access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/vaga/listagem/**" access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/vaga/formulario/**" access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/curriculo/listagem**" access="hasRole('ROLE_ADMIN')"/>
     <sec:intercept-url pattern="/**" access="isAuthenticated()" />
 		<sec:form-login
 			login-page="/"

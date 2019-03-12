@@ -6,10 +6,11 @@
 	<h2>Lista de Cargos</h2>
 </section>
 <section id="conteudo">
+	<a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
 	<a href="/trabalheconosco/cargo/formulario" class="btn btn-sm btn-secondary">Novo Cargo</a>
 	<br/>
 	<br/>
-	<table class="table table-sm table-striped table-hover">
+	<table class="table table-sm table-striped table-hover" id="cargos">
 		<thead>
 			<tr>
 				<th>Código</th>
@@ -31,3 +32,12 @@
 		</tbody>
 		</table>
 </section>
+<script>
+	$(document).ready(function() {
+	    $('#cargos').DataTable({
+	    	"oLanguage": {
+	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
+	    	}
+	    });
+	} );
+</script>

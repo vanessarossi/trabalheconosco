@@ -60,4 +60,9 @@ public class VagaServiceImpl implements VagaService{
 	public void deletar(Long id) {
 		repositorioVaga.delete(id);
 	}
+
+	@Override
+	public List<Vaga> listarVagasAbertas() {
+		return repositorioVaga.findByAtivoAndDataInicialLessThanEqualAndDataFinalGreaterThanEqual(true, new Date(), new Date());
+	}
 }

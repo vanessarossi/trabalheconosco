@@ -32,7 +32,7 @@
 		</div>
 		<div>
 			<input type="hidden" class="form-control" id="id" name="id" value="${postoAtendimento.id}"/>
-			<a href="/trabalheconosco/postoAtendimento/listagem" class="btn btn-warning">Cancelar</a>
+			<a href="/trabalheconosco/postoAtendimento/listagem" class="btn btn-danger">Cancelar</a>
 			<input type="submit" value="Salvar" class="btn btn-success"/>
 		</div>
 	</form>

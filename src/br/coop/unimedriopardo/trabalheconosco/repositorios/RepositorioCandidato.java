@@ -7,5 +7,6 @@ import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
 public interface RepositorioCandidato extends JpaRepository<Candidato, Long>{
 
 	public Candidato findByUsuario_Id(Long id);
+	public Candidato findByUsuario_Login(String cpf);
 	public Candidato findByCpf(String cpf);
 }

@@ -48,16 +48,26 @@
 			<put-attribute name="title" value="Vaga"></put-attribute>
 			<put-attribute name="body" value="/WEB-INF/views/vaga/index.jsp"></put-attribute>
 		</definition>
+		<!-- LISTA VAGAS PARA CANDIDADO -->
+		<definition name="vaga.listagem.tiles" extends="layout.tiles">
+			<put-attribute name="title" value="Lista de Vagas Abertas"></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/views/vaga/listagem.jsp"></put-attribute>
+		</definition>
 		<!-- FORMULARIO -->
 		<definition name="vaga.form.tiles" extends="layout.tiles">
 			<put-attribute name="title" value="Vaga"></put-attribute>
 			<put-attribute name="body" value="/WEB-INF/views/vaga/form.jsp"></put-attribute>
 		</definition>
 	<!-- CANDIDATO -->
-		<!-- INDEX -->
+		<!-- INDES -->
 		<definition name="candidato.index.tiles" extends="layout.tiles">
 			<put-attribute name="title" value="Meu Curriculo"></put-attribute>
 			<put-attribute name="body" value="/WEB-INF/views/candidato/index.jsp"></put-attribute>
+		</definition>
+		<!-- LISTAGEM -->
+		<definition name="candidato.listagem.tiles" extends="layout.tiles">
+			<put-attribute name="title" value="Lista de Candidatos"></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/views/candidato/listagem.jsp"></put-attribute>
 		</definition>
 		<!-- FORMULARIO -->
 		<definition name="candidato.form.tiles" extends="layout.tiles">

@@ -15,7 +15,7 @@
 		</div>
 		<div>
 			<input type="hidden" class="form-control" id="id" name="id" value="${cargo.id}"/>
-			<a href="/trabalheconosco/cargo/listagem" class="btn btn-warning">Cancelar</a>
+			<a href="/trabalheconosco/cargo/listagem" class="btn btn-danger">Cancelar</a>
 			<input type="submit" value="Salvar" class="btn btn-success"/>
 		</div>
 	</form>

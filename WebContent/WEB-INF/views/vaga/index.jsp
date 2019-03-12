@@ -6,10 +6,11 @@
 	<h2>Lista de Vagas</h2>
 </section>
 <section id="conteudo">
+	<a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
 	<a href="/trabalheconosco/vaga/formulario" class="btn btn-sm btn-secondary">Nova Vaga</a>
 	<br/>
 	<br/>
-	<table class="table table-sm table-striped table-hover">
+	<table class="table table-sm table-striped table-hover" id="vagas">
 		<thead>
 			<tr>
 				<th>Código</th>
@@ -25,7 +26,7 @@
 				<tr>
 					<td>${vaga.id}</td>
 					<td>${vaga.cargo.nome}</td>
-					<td>${vaga.ativo}</td>
+					<td><c:if test="${vaga.ativo eq true}">Sim</c:if><c:if test="${vaga.ativo eq false}">Não</c:if></td>
 					<td>${vaga.dataInicial}</td>
 					<td>${vaga.dataFinal}</td>
 					<td>
@@ -37,3 +38,12 @@
 		</tbody>
 		</table>
 </section>
+<script>
+	$(document).ready(function() {
+	    $('#vagas').DataTable({
+	    	"oLanguage": {
+	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
+	    	}
+	    });
+	} );
+</script>

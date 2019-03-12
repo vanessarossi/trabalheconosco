@@ -15,48 +15,48 @@
 			  		<div class="form-group row">
 						<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 							<label for="cpf">CPF</label>
-							<input type="text" class="form-control cpf" id="cpf" name="cpf" value="${candidato.cpf}"/>
+							<input type="text" class="form-control cpf" id="cpf" name="cpf" value="${candidato.cpf}" required/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 							<label for="senha">Senha</label>
-							<input type="password" class="form-control" id="senha"name="usuario.senha"/>
+							<input type="password" class="form-control" id="senha"name="usuario.senha" required/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 							<label for="nome">Nome</label>
-							<input type="text" class="form-control" id="nome" name="nome" value="${candidato.nome}"/>
+							<input type="text" class="form-control" id="nome" name="nome" value="${candidato.nome}" required/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 							<label for="estadoCivil">Estado Civil</label>
-							<select id="estadoCivil" name="estadoCivil" class="form-control">
-								<option value="casado">Casado(a)</option>
-								<option value="divorciado">Divorciado(a)</option>
-								<option value="separado">Separado(a)</option>
-								<option value="solteiro">Solteiro(a)</option>
-								<option value="viuvo">Viúvo(a)</option>
+							<select id="estadoCivil" name="estadoCivil" class="form-control" required>
+								<option value="casado" <c:if test="${candidato.estadoCivil eq 'casado'}">selected</c:if>>Casado(a)</option>
+								<option value="divorciado" <c:if test="${candidato.estadoCivil eq 'divorciado'}">selected</c:if>>Divorciado(a)</option>
+								<option value="separado" <c:if test="${candidato.estadoCivil eq 'separado'}">selected</c:if>>Separado(a)</option>
+								<option value="solteiro" <c:if test="${candidato.estadoCivil eq 'solteiro'}">selected</c:if>>Solteiro(a)</option>
+								<option value="viuvo" <c:if test="${candidato.estadoCivil eq 'viuvo'}">selected</c:if>>Viúvo(a)</option>
 							</select>
 						</div>
 						<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 							<label for="dataNascimento">Data de Nascimento</label>
-							<input type="text" class="form-control data" id="dataNascimento" name="dataNascimento" value="${candidato.dataNascimento}"/>
+							<input type="text" class="form-control data" id="dataNascimento" name="dataNascimento" value="${candidato.dataNascimento}" required/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 							<label for="nacionalidade">Nacionalidade</label>
-							<input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="${candidato.nacionalidade}"/>
+							<input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="${candidato.nacionalidade}" required/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 							<label for="sexo">Sexo</label>
-							<select id="sexo" name="sexo" class="form-control">
-								<option value="F" <c:if test="${candidato.sexo eq F}">checked</c:if>>Feminino</option>
-								<option value="M" <c:if test="${candidato.sexo eq M}">checked</c:if>>Masculino</option>
+							<select id="sexo" name="sexo" class="form-control" required>
+								<option value="F" <c:if test="${candidato.sexo eq 'F'}">selected</c:if>>Feminino</option>
+								<option value="M" <c:if test="${candidato.sexo eq 'M'}">selected</c:if>>Masculino</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 							<label for="nomeMae">Nome da Mãe</label>
-							<input type="text" class="form-control" id="nomeMae" name="nomeMae" value="${candidato.nomeMae}"/>
+							<input type="text" class="form-control" id="nomeMae" name="nomeMae" value="${candidato.nomeMae}" required/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 							<label for="nomePai">Nome do Pai</label>
@@ -98,7 +98,7 @@
 								<label class="form-check-label">Sim</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" id="ativo" name="pcd" value="false"  <c:if test="${candidado.pcd eq false}">checked</c:if>/>
+								<input class="form-check-input" type="radio" id="ativo" name="pcd" value="false"  <c:if test="${candidato.pcd eq false}">checked</c:if>/>
 								<label class="form-check-label">Não</label>
 							</div>
 						</div>
@@ -115,7 +115,7 @@
 							<select id="escolaridade" name="escolaridade.id" class="form-control">
 								<option>Selecione</option>
 								<c:forEach items="${escolaridades}" var="escolaridade">
-									<option value="${escolaridade.id}" <c:if test="${escolaridade.id eq candidado.escolaridade.id}">selected</c:if>>${escolaridade.nome}</option>
+									<option value="${escolaridade.id}" <c:if test="${escolaridade.id eq candidato.escolaridade.id}">selected</c:if>>${escolaridade.nome}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -126,8 +126,8 @@
 							<input type="text" class="form-control" id="linkFacebookcpf" name="linkFacebook" value="${candidato.linkFacebook}"/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-							<label for="foto">Foto</label>
-							<input type="file" class="form-control" id="foto" name="foto" value="${candidato.foto}"/>
+							<label  for="foto">Foto</label>
+							<input type="file" class="form-control" id="foto" name="foto" value="${candidato.foto}">
 						</div>
 					</div>
 			  </div>
@@ -138,39 +138,41 @@
 			    <div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 						<label for="cep">CEP</label>
-						<input type="text" class="form-control cep" id="cep" name="endereco.cep" value="${candidato.endereco.cep}"/>
+						<input type="text" class="form-control cep" id="cep" name="endereco.cep" value="${candidato.endereco.cep}" required/>
 					</div>
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 						<label for="endereco">Endereço</label>
-						<input type="text" class="form-control" id="endereco" name="endereco.endereco" value="${candidato.endereco.endereco}"/>
+						<input type="text" class="form-control" id="endereco" name="endereco.endereco" value="${candidato.endereco.endereco}" required/>
 					</div>
 					<div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
 						<label for="numero">Nº</label>
-						<input type="text" class="form-control" id="numero" name="endereco.numero" value="${candidato.endereco.numero}"/>
+						<input type="text" class="form-control" id="numero" name="endereco.numero" value="${candidato.endereco.numero}" required/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
 						<label for="bairro">Bairro</label>
-						<input type="text" class="form-control" id="bairro" name="endereco.bairro" value="${candidato.endereco.bairro}"/>
+						<input type="text" class="form-control" id="bairro" name="endereco.bairro" value="${candidato.endereco.bairro}" required/>
 					</div>
 					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
 						<label for="complemento">Complemento</label>
-						<input type="text" class="form-control" id="complemento" name="endereco.complemento" value="${candidato.endereco.complemento}" />
+						<input type="text" class="form-control" id="complemento" name="endereco.complemento" value="${candidato.endereco.complemento}" required />
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 						<label for="estado">Estado</label>
-						<select class="form-control" id="estado">
+						${candidato.endereco.cidade.estado.codigoUf}
+						<select class="form-control" id="estado" required>
 							<option value="">Selecione</option>
 							<c:forEach items="${estados}" var="estado">
-								<option value="${estado.codigoUf}" <c:if test="${candidato.endereco.cidade.estado.codigoUf eq estado.codigoUf}">checked</c:if>>${estado.nome}</option>
+								<option value="${estado.codigoUf}" <c:if test="${estado.codigoUf eq candidato.endereco.cidade.estado.codigoUf}">selected</c:if>>${estado.nome}</option>
 							</c:forEach>
 						</select>
 					</div>
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 						<label for="cidade">Cidade</label>
+						<input type="hidden" id="cidadeEscolhida" value="${candidato.endereco.cidade.codigoIbge}" required />
 						<select class="form-control" id="cidade" name="endereco.cidade.codigoIbge">
 						</select>
 					</div>
@@ -183,21 +185,21 @@
 			    <div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 						<label for="telefone">Telefone</label>
-						<input type="text" class="form-control telefone" id="telefone" name="contato.telefone" value="${candidato.contato.telefone}" />
+						<input type="text" class="form-control telefone" id="telefone" name="contato.telefone" value="${candidato.contato.telefone}" required/>
 					</div>
 					<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 						<label for="celular">Celular</label>
-						<input type="text" class="form-control celular" id="celular" name="contato.celular" value="${candidato.contato.celular}" />
+						<input type="text" class="form-control celular" id="celular" name="contato.celular" value="${candidato.contato.celular}" required/>
 					</div>
 					<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 						<label for="numeroContato">Nº Contato</label>
-						<input type="text" class="form-control contato" id="numeroContato" name="contato.numeroContato" value="${candidato.contato.numeroContato}" />
+						<input type="text" class="form-control contato" id="numeroContato" name="contato.numeroContato" value="${candidato.contato.numeroContato}" required />
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 						<label for="email">E-mail</label>
-						<input type="email" class="form-control" id="email" name="contato.email" value="${candidato.contato.email}"/>
+						<input type="email" class="form-control" id="email" name="contato.email" value="${candidato.contato.email}" required/>
 					</div>
 				</div>
 			  </div>
@@ -241,21 +243,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${candidato.experienciasProfissionais}" var="experienciaProfissional">
+						<c:forEach items="${candidato.experienciasProfissionais}" var="experienciaProfissional" varStatus="i">
 							<tr>
 								<td>
 									${experienciaProfissional.nomeEmpresa}
-									<input type="hidden" name="candidato.experienciasProfissionais[${i.index}].experienciaProfissional.id"  value="experienciaProfissional.id"/>
-									<input type="hidden" name="candidato.experienciasProfissionais[${i.index}].experienciaProfissional.nomeEmpresa" value="experienciaProfissional.nomeEmpresa"/>
-									<input type="hidden" name="candidato.experienciasProfissionais[${i.index}].experienciaProfissional.Cargo" value="experienciaProfissional.nomeCargo"/>
-									<input type="hidden" name="candidato.experienciasProfissionais[${i.index}].experienciaProfissional.dataInicio" value="experienciaProfissional.dataInicio"/>
-									<input type="hidden" name="candidato.experienciasProfissionais[${i.index}].experienciaProfissional.dataFim"value="experienciaProfissional.dataFim"/>
+									<input type="hidden" name="experienciasProfissionais[${i.index}].id"  value="${experienciaProfissional.id}"/>
+									<input type="hidden" name="experienciasProfissionais[${i.index}].nomeEmpresa" value="${experienciaProfissional.nomeEmpresa}"/>
+									<input type="hidden" name="experienciasProfissionais[${i.index}].nomeCargo" value="${experienciaProfissional.nomeCargo}"/>
+									<input type="hidden" name="experienciasProfissionais[${i.index}].dataInicio" value="${experienciaProfissional.dataInicio}"/>
+									<input type="hidden" name="experienciasProfissionais[${i.index}].dataFim"value="${experienciaProfissional.dataFim}"/>
 								</td>
 								<td>${experienciaProfissional.nomeCargo}</td>
 								<td>${experienciaProfissional.dataInicio}</td>
 								<td>${experienciaProfissional.dataFim}</td>
 								<td>
-									<a class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+									<a class="btn btn-sm btn-danger" onclick="deletarExperienciaProfissional(${i.index},${experienciaProfissional.id})"><i class="fas fa-trash-alt"></i></a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -317,19 +319,19 @@
 							<tr>
 								<td>
 									${formacaoAcademica.nivelFormacao.nome}
-									<input type="hidden" name="candidato.formacoesAcademicas[${i.index}].formacaoAcademica.id" value="formacaoAcademica.id"/>
-									<input type="hidden" name="candidato.formacoesAcademicas[${i.index}].formacaoAcademica.id" value="formacaoAcademica.nivelFormaca.id"/>
-									<input type="hidden" name="candidato.formacoesAcademicas[${i.index}].formacaoAcademica.id" value="formacaoAcademica.instituicao"/>
-									<input type="hidden" name="candidato.formacoesAcademicas[${i.index}].formacaoAcademica.id" value="formacaoAcademica.nomeCurso"/>
-									<input type="hidden" name="candidato.formacoesAcademicas[${i.index}].formacaoAcademica.id" value="formacaoAcademica.dataInicio"/>
-									<input type="hidden" name="candidato.formacoesAcademicas[${i.index}].formacaoAcademica.id" value="formacaoAcademica.dataFim"/>
+									<input type="hidden" name="formacoesAcademicas[${i.index}].id" value="${formacaoAcademica.id}"/>
+									<input type="hidden" name="formacoesAcademicas[${i.index}].nivelFormacao.id" value="${formacaoAcademica.nivelFormacao.id}"/>
+									<input type="hidden" name="formacoesAcademicas[${i.index}].instituicao" value="${formacaoAcademica.instituicao}"/>
+									<input type="hidden" name="formacoesAcademicas[${i.index}].nomeCurso" value="${formacaoAcademica.nomeCurso}"/>
+									<input type="hidden" name="formacoesAcademicas[${i.index}].dataInicio" value="${formacaoAcademica.dataInicio}"/>
+									<input type="hidden" name="formacoesAcademicas[${i.index}].dataFim" value="${formacaoAcademica.dataFim}"/>
 								</td>
 								<td>${formacaoAcademica.instituicao}</td>
 								<td>${formacaoAcademica.nomeCurso}</td>
 								<td>${formacaoAcademica.dataInicio}</td>
 								<td>${formacaoAcademica.dataFim}</td>
 								<td>
-									<a class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+									<a class="btn btn-sm btn-danger" onclick="deletarFormacaoAcademica(${i.index},${formacaoAcademica.id})"><i class="fas fa-trash-alt"></i></a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -380,17 +382,17 @@
 							<tr>
 								<td>
 									${curso.nome}
-									<input type="hidden" name="candidato.cursos[${i.index}].curso.id" value="curso.id"/>
-									<input type="hidden" name="candidato.cursos[${i.index}].curso.nome" value="curso.nome"/>
-									<input type="hidden" name="candidato.cursos[${i.index}].curso.instituicao" value="curso.instituicao"/>
-									<input type="hidden" name="candidato.cursos[${i.index}].curso.dataInicio" value="cursto.dataInicio"/>
-									<input type="hidden" name="candidato.cursos[${i.index}].curso.dataFim" value="curso.dataFim"/>
+									<input type="hidden" name="cursos[${i.index}].id" value="${curso.id}"/>
+									<input type="hidden" name="cursos[${i.index}].nome" value="${curso.nome}"/>
+									<input type="hidden" name="cursos[${i.index}].instituicao" value="${curso.instituicao}"/>
+									<input type="hidden" name="cursos[${i.index}].dataInicio" value="${cursto.dataInicio}"/>
+									<input type="hidden" name="cursos[${i.index}].dataFim" value="${curso.dataFim}"/>
 								</td>
 								<td>${curso.instituicao}</td>
 								<td>${curso.dataInicio}</td>
 								<td>${curso.dataFim}</td>
 								<td>
-									<a class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+									<a class="btn btn-sm btn-danger" onclick="deletarCurso(${i.index},${curso.id})"><i class="fas fa-trash-alt"></i></a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -402,7 +404,10 @@
 		<div>
 			<input type="hidden" class="form-control" id="id" name="dataCadastro" value="${candidato.dataCadastro}"/>
 			<input type="hidden" class="form-control" id="id" name="id" value="${candidato.id}"/>
-			<a href="/trabalheconosco/" class="btn btn-warning">Cancelar</a>
+			<input type="hidden" class="form-control" id="id" name="endereco.id" value="${candidato.endereco.id}"/>
+			<input type="hidden" class="form-control" id="id" name="contato.id" value="${candidato.contato.id}"/>
+			<input type="hidden" class="form-control" id="id" name="usuario.id" value="${candidato.usuario.id}"/>
+			<a href="/trabalheconosco/home" class="btn btn-danger">Cancelar</a>
 			<input type="submit" value="Salvar" class="btn btn-success"/>
 		</div>
 	</form>

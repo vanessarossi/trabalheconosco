@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -90,8 +92,8 @@ public class Candidato {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="data_ultima_atualizacao")
 	private Date dataUltimaAtualizacao;
 	
@@ -112,12 +114,15 @@ public class Candidato {
 	private Usuario usuario;
 	
 	@OneToMany(mappedBy="candidato")
+	@LazyCollection(LazyCollectionOption.FALSE) 
 	private List<FormacaoAcademica> formacoesAcademicas;
 	
 	@OneToMany(mappedBy="candidato")
+	@LazyCollection(LazyCollectionOption.FALSE) 
 	private List<Curso> cursos;
-	
+
 	@OneToMany(mappedBy="candidato")
+	@LazyCollection(LazyCollectionOption.FALSE) 
 	private List<ExperienciaProfissional> experienciasProfissionais;
 	
 	@OneToMany(mappedBy="candidato")

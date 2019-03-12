@@ -2,6 +2,7 @@ package br.coop.unimedriopardo.trabalheconosco.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class ExperienciaProfissional {
 	@Column(name="data_fim", length=10)
 	private String dataFim;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "candidato_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_candidato_experiencia_profissional"))
 	private Candidato candidato;
 
