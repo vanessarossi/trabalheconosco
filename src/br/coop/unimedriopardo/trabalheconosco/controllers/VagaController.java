@@ -65,4 +65,10 @@ public class VagaController {
 		return "redirect:/vaga/listagem";
 	}
 
+	@GetMapping("/info/{id}")
+	public String informacao(Model model,@PathVariable Long id) {
+		Vaga vaga = vagaService.pesquisarPorId(id);
+		model.addAttribute("vaga", vaga);
+		return "vaga.info.tiles";
+	}
 }

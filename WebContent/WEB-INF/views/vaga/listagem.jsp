@@ -9,7 +9,7 @@
 <a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
 	<br/>
 	<br/>
-	<table class="table table-sm table-striped table-hover">
+	<table class="table table-sm table-striped table-hover" id="vagasAbertas">
 		<thead>
 			<tr>
 				<th>Cargo</th>
@@ -27,10 +27,19 @@
 					<td>${vaga.postoAtendimento.cidade.nome}</td>
 					<td>${vaga.quantidade}</td>
 					<td>
-						<a class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
+						<a href="/trabalheconosco/vaga/info/${vaga.id}" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		</table>
 </section>
+<script>
+	$(document).ready(function() {
+	    $('#vagasAbertas').DataTable({
+	    	"oLanguage": {
+	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
+	    	}
+	    });
+	} );
+</script>

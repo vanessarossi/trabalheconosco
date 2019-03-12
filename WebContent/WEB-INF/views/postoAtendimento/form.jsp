@@ -20,12 +20,13 @@
 				<select class="form-control" id="estado">
 					<option value="">Selecione</option>
 					<c:forEach items="${estados}" var="estado">
-						<option value="${estado.codigoUf}">${estado.nome}</option>
+						<option value="${estado.codigoUf}" <c:if test="${estado.codigoUf eq postoAtendimento.cidade.estado.codigoUf}"> selected </c:if>>${estado.nome}</option>
 					</c:forEach>
 				</select>
 			</div>
 			<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 				<label for="cidade">Cidade</label>
+				<input type="hidden" id="cidadeEscolhida" value="${postoAtendimento.cidade.codigoIbge}"  />
 				<select class="form-control" id="cidade" name="cidade.codigoIbge">
 				</select>
 			</div>
@@ -38,4 +39,6 @@
 	</form>
 </section>
 <spring:url value="/resources/js/estadocidade.js" var="cidadeEstadoJS"></spring:url>
+<spring:url value="/resources/js/form_postoAtendimento.js" var="formPostoAtendimentoJS"></spring:url>
 <script type="text/javascript" src="${cidadeEstadoJS}"></script>
+<script type="text/javascript" src="${formPostoAtendimentoJS}"></script>

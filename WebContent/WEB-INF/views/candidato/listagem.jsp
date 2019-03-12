@@ -7,6 +7,7 @@
 </section>
 <section id="conteudo">
 <a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
+<a href="/trabalheconosco/home" class="btn btn-sm btn-info">Pesquisa com filtros</a>
 	<br/>
 	<br/>
 	<table class="table table-sm table-striped table-hover">

@@ -58,6 +58,11 @@
 			<put-attribute name="title" value="Vaga"></put-attribute>
 			<put-attribute name="body" value="/WEB-INF/views/vaga/form.jsp"></put-attribute>
 		</definition>
+		<!-- FORMULARIO -->
+		<definition name="vaga.info.tiles" extends="layout.tiles">
+			<put-attribute name="title" value="Vaga"></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/views/vaga/info.jsp"></put-attribute>
+		</definition>
 	<!-- CANDIDATO -->
 		<!-- INDES -->
 		<definition name="candidato.index.tiles" extends="layout.tiles">
