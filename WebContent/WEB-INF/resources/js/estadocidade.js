@@ -12,7 +12,7 @@ $('#estado').change(function (){
     	},
     	success: function (result) {
         	$.each(result, function() {
-        		option = "<option value="+this.codigoIbge+">"+this.nome+"</option>";
+        		option = "<option value="+this.id+">"+this.nome+"</option>";
 				$('#cidade').append(option);
         	});
     	},

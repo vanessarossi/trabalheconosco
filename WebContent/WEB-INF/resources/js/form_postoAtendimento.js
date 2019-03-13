@@ -11,9 +11,9 @@ $(document).ready(function(){
             },
             success: function (result) {
                 $.each(result, function() {
-                    seleciona = (codCidade == this.codigoIbge) ? 'selected' : '';
+                    seleciona = (codCidade == this.id) ? 'selected' : '';
 
-                    option = "<option value='"+this.codigoIbge+"' "+seleciona+">"+this.nome+"</option>";
+                    option = "<option value='"+this.id+"' "+seleciona+">"+this.nome+"</option>";
                     $('#cidade').append(option);
                 });
             },

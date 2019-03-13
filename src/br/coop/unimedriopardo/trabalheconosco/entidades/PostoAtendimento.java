@@ -27,7 +27,7 @@ public class PostoAtendimento {
 	private String nome;
 	
 	@ManyToOne
-	@JoinColumn(name = "codigoIbge", referencedColumnName = "codigo_ibge", nullable = false, foreignKey = @ForeignKey(name = "Fk_cidade_posto_atendimento"))
+	@JoinColumn(name = "cidade_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_cidade_posto_atendimento"))
 	private Cidade cidade;
 	
 	@OneToMany(mappedBy="postoAtendimento")

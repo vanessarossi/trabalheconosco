@@ -40,7 +40,7 @@ public class Endereco {
 	private String bairro;
 	
 	@ManyToOne
-	@JoinColumn(name = "codigo_ibge", referencedColumnName = "codigo_ibge", nullable = false, foreignKey = @ForeignKey(name = "Fk_cidade_endereco"))
+	@JoinColumn(name = "cidade_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_cidade_endereco"))
 	private Cidade cidade;
 
 	@OneToOne(mappedBy="endereco")

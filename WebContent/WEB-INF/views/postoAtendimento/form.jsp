@@ -26,8 +26,8 @@
 			</div>
 			<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 				<label for="cidade">Cidade</label>
-				<input type="hidden" id="cidadeEscolhida" value="${postoAtendimento.cidade.codigoIbge}"  />
-				<select class="form-control" id="cidade" name="cidade.codigoIbge">
+				<input type="hidden" id="cidadeEscolhida" value="${postoAtendimento.cidade.id}"  />
+				<select class="form-control" id="cidade" name="cidade.id">
 				</select>
 			</div>
 		</div>

@@ -20,9 +20,11 @@ import javax.persistence.GenerationType;
 public class Cidade {
 
 	@Id
-	@Column(name="codigo_ibge")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long codigoIbge;
+	private Long id;
+	
+	@Column(name="codigo_ibge")
+	private String codigoIbge;
 	
 	@Column(length=100)
 	private String nome;
@@ -40,11 +42,19 @@ public class Cidade {
 	@OneToMany(mappedBy="cidade")
 	private List<Endereco> enderecos;
 
-	public Long getCodigoIbge() {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCodigoIbge() {
 		return codigoIbge;
 	}
 
-	public void setCodigoIbge(Long codigoIbge) {
+	public void setCodigoIbge(String codigoIbge) {
 		this.codigoIbge = codigoIbge;
 	}
 

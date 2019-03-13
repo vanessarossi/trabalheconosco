@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
+
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
 import br.coop.unimedriopardo.trabalheconosco.servicos.CandidatoService;
 
@@ -70,9 +73,8 @@ public class CandidatoController {
 	}
 		
 	@PostMapping("/salvar")
-	public String salvar(Candidato candidato, Model model) {
-		Candidato candidatoSalvo =  candidatoService.salvar(candidato);
-		model.addAttribute("candidato", candidatoSalvo);
+	public String salvar(Candidato candidato, Model model, @RequestParam("imagem") MultipartFile file) {
+		candidatoService.salvar(candidato, file);
 		return "redirect:/candidato/meucurriculo";
 	}
 	

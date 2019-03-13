@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section class="text-center">
 	<p class="lead"></p>
 </section>
@@ -34,7 +35,7 @@
 				</div>		
 			</div>
 			<div class=" col-11 col-sm-11 col-md-3 col-lg-3 col-xl-3">
-				<div class="card text-center card-pantone561c" id="login">
+				<div class="card text-center card-pantone561c" id="formLogin">
 						<br/>
 						<i class="fas fa-sign-in-alt fa-5x"></i>
 						<div class="card-body">
@@ -49,13 +50,14 @@
 									<input type="password" class="form-control" id="senha" name="senha"/>
 								</div>
 								<div class="form-group">
-									<button type="submit" class="btn btn-success">Entrar</button><br/>
-									<a href="/uniresultado/prestador/listagem">Esqueci minha senha</a>
+									<button type="submit" class="btn btn-success">Entrar</button><br/><br/>
+									<a href="#" onclick="gerarNovaSenha()" class="badge badge-info">Esqueci minha senha</a>
 								</div>
 							</form>
 						</div>
-					</div>
-				
+					</div>			
 			</div>
 	</div>
 </section>
+<spring:url value="/resources/js/form_login.js" var="formLoginJS"></spring:url>
+<script type="text/javascript" src="${formLoginJS}"></script>

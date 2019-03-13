@@ -1,13 +1,28 @@
 package br.coop.unimedriopardo.trabalheconosco.servicos;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Contato;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Curso;
@@ -79,7 +94,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 	}
 
 	@Override
-	public Candidato salvar(Candidato candidato) {
+	public void salvar(Candidato candidato, MultipartFile file) {
 		List<FormacaoAcademica> formacoesAcademicas = candidato.getFormacoesAcademicas();
 		List<Curso> cursos = candidato.getCursos();
 		List<ExperienciaProfissional> experienciasProfissionais = candidato.getExperienciasProfissionais();
@@ -122,6 +137,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 		novoCandidato.setEndereco(endereco);
 		novoCandidato.setContato(contato);
 		novoCandidato.setUsuario(usuario);
+		novoCandidato.setFoto(candidato.getFoto());
 		novoCandidato.setDataCadastro(candidato.getDataCadastro() == null ? new Date() : candidato.getDataCadastro());
 		novoCandidato.setDataUltimaAtualizacao(new Date());
 		novoCandidato = repositorioCandidato.save(novoCandidato);
@@ -149,7 +165,14 @@ public class CandidatoServiceImpl implements CandidatoService {
 				repositorioCurso.save(c);
 			}
 		}
-		return repositorioCandidato.findOne(novoCandidato.getId());
+
+		if (! file.isEmpty()) {
+			String nomeArquivo = novoCandidato.getId().toString();
+			String foto = uploadFoto(nomeArquivo, file);
+			novoCandidato.setFoto(foto);
+			repositorioCandidato.save(novoCandidato);
+		}
+		
 	}
 
 	@Override
@@ -191,6 +214,100 @@ public class CandidatoServiceImpl implements CandidatoService {
 	public List<Candidato> pesquisarTodos() {
 		return repositorioCandidato.findAll(new Sort("dataCadastro"));
 	}
+
+	@Override
+	public String uploadFoto(String nomeArquivo, MultipartFile file) {
+		 String caminho = System.getProperty("catalina.home") + "/webapps/fotos";
+		 File pasta;
+		   pasta = new File(caminho);
+		   if (!pasta.exists()){
+		       pasta.mkdir();
+		   }
+		  String caminhoArquivo = caminho + "/" + nomeArquivo +".jpg";
+		  File novoArquivo = new File(caminhoArquivo);
+		  FileOutputStream saida;
 	
+			try {
+				saida = new FileOutputStream(novoArquivo);
+				saida.write(file.getBytes(), 0, file.getBytes().length);
+				saida.close();	
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			 
+		return "/fotos/"+nomeArquivo +".jpg";
+	}
+
+	@Override
+	public void gerarNovaSenha(String cpf) {
+		Usuario usuario = repositorioUsuario.findByLogin(cpf);
+		if (usuario != null) {
+			String senha = gerarSenhaAleatoria();
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			usuario.setSenha(passwordEncoder.encode(senha)); 	
+			repositorioUsuario.save(usuario);
+			enviarEmail(usuario, senha);
+		}
 	
+	}
+	
+	public String gerarSenhaAleatoria() {
+		String letras = "ABCDEFGHIJKLMNOPQRSTUVYWXZ";
+        Random random = new Random();
+        String chave = "";
+        int index = -1;
+        int valorNumerico= 0;
+        for (int i = 0; i < 4; i++) {
+            index = random.nextInt(letras.length());
+            valorNumerico = random.nextInt(10);
+            chave += letras.substring(index, index + 1);
+            chave += valorNumerico;
+        }
+        return chave;
+	}
+
+	
+	public void enviarEmail(Usuario usuario, String senha) {
+		Properties props = new Properties();
+        /** Parâmetros de conexão com servidor Gmail */
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                         protected PasswordAuthentication getPasswordAuthentication() 
+                         {
+                               return new PasswordAuthentication("unimed250@gmail.com", "uni250rp");
+                         }
+                    });
+
+        /** Ativa Debug para sessão */
+        session.setDebug(true);
+        try {
+              Message message = new MimeMessage(session);
+              message.setFrom(new InternetAddress("unimed250@gmail.com")); //Remetente
+
+              Address[] toUser = InternetAddress //Destinatário(s)
+                         .parse(usuario.getCandidato().getContato().getEmail());  
+
+              message.setRecipients(Message.RecipientType.TO, toUser);
+              message.setSubject("Recuperação de senha - Fale Conosco Unimed Rio Pardo");//Assunto
+              
+              
+              String body= "Olá " + usuario.getCandidato().getNome()+", \n"+
+                      " Você solicitou uma nova senha para o sistema Fale Conosco da Unimed Rio Pardo e a sua nova senha é: "+senha+"\n"+
+                      " Para alterar, acesse o seu currículo e coloque a nova senha.\n"+
+                      " Por favor, não responda este e-mail, pois o mesmo não será recebido, qualquer duvida entre em contato com o departamento de TI.";
+                         
+              message.setText(body);
+
+              /**Método para enviar a mensagem criada*/
+              Transport.send(message);
+         } catch (MessagingException e) {
+              throw new RuntimeException(e);
+        }
+	}
 }

@@ -8,7 +8,7 @@
 	<h2>Cadastro de Currículo</h2>
 </section>
 <section class="container">
-	<form class="form" action="/trabalheconosco/candidato/salvar" method="post">
+	<form class="form" action="/trabalheconosco/candidato/salvar" method="post" enctype=multipart/form-data>
 		<h3>Dados Pessoais</h3>
 			<div class="card">
 			  <div class="card-body">
@@ -127,7 +127,8 @@
 						</div>
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 							<label  for="foto">Foto</label>
-							<input type="file" class="form-control" id="foto" name="foto" value="${candidato.foto}">
+							<input type="hidden" name="foto" value="${candidato.foto}" />
+							<input type="file" class="form-control" id="foto" name="imagem" >
 						</div>
 					</div>
 			  </div>
@@ -172,8 +173,8 @@
 					</div>
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 						<label for="cidade">Cidade</label>
-						<input type="hidden" id="cidadeEscolhida" value="${candidato.endereco.cidade.codigoIbge}"  />
-						<select class="form-control" id="cidade" name="endereco.cidade.codigoIbge" required>
+						<input type="hidden" id="cidadeEscolhida" value="${candidato.endereco.cidade.id}"  />
+						<select class="form-control" id="cidade" name="endereco.cidade.id" required>
 						</select>
 					</div>
 				</div>

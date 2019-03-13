@@ -13,10 +13,13 @@
 	<h3>Dados Pessoais</h3>
 		<div class="card">
 			<div class="card-body">
-			  	<div class="form-group row">
-			  		<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-			  			<img class="card-img-top" src="..." alt="Card image cap">
+				<div class="form-group row">
+					<div class="col-6 col-sm-6 col-md-1 col-lg-1 col-xl-1">
+			  			<img class="card-img-top" src="${candidato.foto}">
 			  		</div>
+				</div>
+			  	<div class="form-group row">
+			  		
 					<div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
 						<label for="cpf">CPF</label>
 						<span class="form-control" id="cpf">${candidato.cpf}</span>
