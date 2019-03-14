@@ -9,7 +9,7 @@
 
 <section id="forms">
 	<div class="row card-columns justify-content-center">
-			<div class="col-11 col-sm-11 col-md-3 col-lg-3 col-xl-3">
+			<div class="col-11 col-sm-11 col-md-5 col-lg-3 col-xl-3">
 				<div class="card text-center card-pantone381c" id="cadastro">
 					<br/>
 					<i class="fas fa-user fa-5x"></i>
@@ -34,7 +34,7 @@
 					</div>
 				</div>		
 			</div>
-			<div class=" col-11 col-sm-11 col-md-3 col-lg-3 col-xl-3">
+			<div class=" col-11 col-sm-11 col-md-5 col-lg-3 col-xl-3">
 				<div class="card text-center card-pantone561c" id="formLogin">
 						<br/>
 						<i class="fas fa-sign-in-alt fa-5x"></i>

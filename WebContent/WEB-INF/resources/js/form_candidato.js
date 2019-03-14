@@ -33,8 +33,9 @@ function adicionarExperienciaProfissional() {
     var dataFim = $('#dataFimExperienciaProfissional').val();
     var contadorExperienciasProfissionais = $('#contadorExperienciasProfissionais').val();
 
+    var totalLinhasTabela = $('#tabelaExperienciaProfissional tbody tr').length;
     if (nomeEmpresa != null && nomeEmpresa != '' && nomeCargo != null && nomeCargo != '' && dataInicio != null && dataInicio != '' ) {
-       if (contadorExperienciasProfissionais < 3) {
+       if (totalLinhasTabela <= 3) {
              var row = "<tr id='experienciaProfissional"+contadorExperienciasProfissionais+"'>";
                 row += "<input type='hidden' name=experienciasProfissionais["+contadorExperienciasProfissionais+"].nomeEmpresa value='"+nomeEmpresa+"'>";
                 row += "<input type='hidden' name=experienciasProfissionais["+contadorExperienciasProfissionais+"].nomeCargo value='"+nomeCargo+"'>";
@@ -126,7 +127,7 @@ function adicionarCurso() {
         row += "</tr>";
         $('#tabelaCursos').append(row);
         $('#nomeCurso').val("");
-        $('#instituicao').val("");
+        $('#instituicaoCurso').val("");
         $('#dataInicioCurso').val("");
         $('#dataFimCurso').val("");
         $('#contadorCursos').val(parseInt(contadorCursos) + 1);
@@ -136,39 +137,34 @@ function adicionarCurso() {
 };
 
 function deletarFormacaoAcademica(contador, id) {
-   if (parseInt(id) === 0) {
+   if (parseInt(id) == 0) {
         $('#formacaoAcademica'+contador).remove();
     }else{
+    	$('#formacaoAcademica'+contador).remove();
         $.ajax({
             url: '/trabalheconosco/candidato/deletar/formacaoAcademica/'+id,
             type: "GET",
             dataType: 'json',
-            beforeSend: function(){
-                $('#formacaoAcademica'+contador).remove();
-            },
-            success: function (result) {
-            },
+            beforeSend: function(){},
+            success: function (result){},
             error: function () {
                 alert("Ocorreu um erro no processamento dos dados.");
             }
         });
-        $('#formacaoAcademica'+contador).remove();
     }
 };
 
 function deletarCurso(contador, id) {
-    if (parseInt(id) === 0) {
+    if (parseInt(id) == 0) {
         $('#curso'+contador).remove();
     }else{
+    	$('#curso'+contador).remove();
         $.ajax({
             url: '/trabalheconosco/candidato/deletar/curso/'+id,
             type: "GET",
             dataType: 'json',
-            beforeSend: function(){
-                $('#curso'+contador).remove();
-            },
-            success: function (result) {
-            },
+            beforeSend: function(){},
+            success: function (result) {},
             error: function () {
                 alert("Ocorreu um erro no processamento dos dados.");
             }
@@ -178,22 +174,19 @@ function deletarCurso(contador, id) {
 };
 
 function deletarExperienciaProfissional(contador, id) {
-    if (parseInt(id) === 0) {
+    if (parseInt(id) == 0) {
             $('#experienciaProfissional'+contador).remove();
         }else{
+        	$('#experienciaProfissional'+contador).remove();
             $.ajax({
                 url: '/trabalheconosco/candidato/deletar/experienciaProfissional/'+id,
                 type: "GET",
                 dataType: 'json',
-                beforeSend: function(){
-                    $('#experienciaProfissional'+contador).remove();
-                },
-                success: function (result) {
-                },
+                beforeSend: function(){},
+                success: function (result){},
                 error: function () {
                     alert("Ocorreu um erro no processamento dos dados.");
                 }
             });
-            $('#experienciaProfissional'+contador).remove();
         }
 }

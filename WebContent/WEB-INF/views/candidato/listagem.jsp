@@ -10,28 +10,49 @@
 <a href="/trabalheconosco/home" class="btn btn-sm btn-info">Pesquisa com filtros</a>
 	<br/>
 	<br/>
-	<table class="table table-sm table-striped table-hover">
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Estado Civil</th>
-				<th>Cidade</th>
-				<th>Escolaridade</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${candidatos}" var="candidato">
+	<div class="table-responsive">
+		<table class="table table-sm table-striped table-hover" id="candidatos">
+			<thead>
 				<tr>
-					<td>${candidato.nome}</td>
-					<td>${candidato.estadoCivil}</td>
-					<td>${candidato.endereco.cidade.nome}</td>
-					<td>${candidato.escolaridade.nome}</td>
-					<td>
-						<a class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
-					</td>
+					<th>Nome</th>
+					<th>Estado Civil</th>
+					<th>Cidade</th>
+					<th>Escolaridade</th>
+					<th></th>
 				</tr>
-			</c:forEach>
-		</tbody>
+			</thead>
+			<tbody>
+				<c:forEach items="${candidatos}" var="candidato">
+					<tr>
+						<td>${candidato.nome}</td>
+						<td>${candidato.estadoCivil}</td>
+						<td>${candidato.endereco.cidade.nome}</td>
+						<td>${candidato.escolaridade.nome}</td>
+						<td>
+							<a class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
+	</div>
 </section>
+<script>
+	$(document).ready(function() {
+	    $('#candidatos').DataTable({
+	    	"oLanguage": {
+	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
+	    	},
+	    	"bAutoWidth":true,
+	        "bLengthChange": false,
+	        "bPaginate": true,
+	        "bFilter": true,
+	        "bSort": false,
+	        "bInfo": true,
+	        "processing": true,
+	        "bJQueryUI": false,
+	        "sPaginationType": "full_numbers",
+	        "iDisplayLength":  10,
+	    });
+	} );
+</script>

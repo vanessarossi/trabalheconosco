@@ -47,6 +47,15 @@ public class VagaServiceImpl implements VagaService{
 
 	@Override
 	public void salvar(Vaga vaga) {
+		if (vaga.getAtivo() == null){
+			vaga.setAtivo(false);
+		}if(vaga.getEstagiario() == null){
+			vaga.setEstagiario(false);
+		}if(vaga.getMenorAprendiz() == null) {
+			vaga.setMenorAprendiz(false);
+		}if(vaga.getPcd() == null) {
+			vaga.setPcd(false);
+		}
 		vaga.setDataCadastro(new Date());
 		repositorioVaga.save(vaga);
 	}

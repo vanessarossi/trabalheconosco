@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+			<div class="col-6 col-sm-6 col-md-1 col-lg-1 col-xl-1">
 				<label for="quantidade">Total</label>
 				<input type="text" class="form-control" id="quantidade" name="quantidade" value="${vaga.quantidade}"/>
 			</div>
@@ -98,11 +98,11 @@
 				<label for="palavrasChave">Palavras Chave</label>
 				<textarea id="palavrasChave" name="palavrasChave" class="form-control">${vaga.palavrasChave}</textarea>
 			</div>				
-			<div class="col-4 col-sm-4 col-md-2 col-lg-2col-xl-2">
+			<div class="col-9 col-sm-9 col-md-2 col-lg-2 col-xl-2">
 				<label for="dataInicial">Data Inicial</label>
 				<input type="date" class="form-control" id="dataInicial" name="dataInicial" value="${vaga.dataInicial}" />
 			</div>				
-			<div class="col-4 col-ssm-4 col-md-2 col-lg-2 col-xl-2">
+			<div class="col-9 col-sm-9 col-md-2 col-lg-2 col-xl-2">
 				<label for="dataFinal">Data Final</label>
 				<input type="date" class="form-control" id="dataFinal" name="dataFinal" value="${vaga.dataFinal}"/>
 			</div>

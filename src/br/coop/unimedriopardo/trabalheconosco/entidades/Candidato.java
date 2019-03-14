@@ -92,8 +92,8 @@ public class Candidato {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="data_ultima_atualizacao")
 	private Date dataUltimaAtualizacao;
 	

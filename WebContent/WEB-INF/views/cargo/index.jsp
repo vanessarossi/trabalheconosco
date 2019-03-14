@@ -10,34 +10,46 @@
 	<a href="/trabalheconosco/cargo/formulario" class="btn btn-sm btn-secondary">Novo Cargo</a>
 	<br/>
 	<br/>
-	<table class="table table-sm table-striped table-hover" id="cargos">
-		<thead>
-			<tr>
-				<th>Código</th>
-				<th>Nome</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${cargos}" var="cargo">
+	<div class="table-responsive">
+		<table class="table table-sm table-striped table-hover" id="cargos">
+			<thead>
 				<tr>
-					<td>${cargo.id}</td>
-					<td>${cargo.nome}</td>
-					<td>
-						<a href="/trabalheconosco/cargo/editar/${cargo.id}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-						<a href="/trabalheconosco/cargo/deletar/${cargo.id}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
-					</td>
+					<th>Código</th>
+					<th>Nome</th>
+					<th></th>
 				</tr>
-			</c:forEach>
-		</tbody>
+			</thead>
+			<tbody>
+				<c:forEach items="${cargos}" var="cargo">
+					<tr>
+						<td>${cargo.id}</td>
+						<td>${cargo.nome}</td>
+						<td>
+							<a href="/trabalheconosco/cargo/editar/${cargo.id}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+							<a href="/trabalheconosco/cargo/deletar/${cargo.id}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
+	</div>
 </section>
 <script>
 	$(document).ready(function() {
 	    $('#cargos').DataTable({
 	    	"oLanguage": {
 	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
-	    	}
+	    	},
+	    	"bAutoWidth":true,
+	        "bLengthChange": false,
+	        "bPaginate": true,
+	        "bFilter": true,
+	        "bSort": false,
+	        "bInfo": true,
+	        "processing": true,
+	        "bJQueryUI": false,
+	        "sPaginationType": "full_numbers",
+	        "iDisplayLength":  10,
 	    });
 	} );
 </script>

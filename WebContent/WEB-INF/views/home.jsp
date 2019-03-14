@@ -14,7 +14,7 @@
 	<section id="menu">
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<div class="row card-columns justify-content-center">
-				<div class="col-11 col-sm-11 col-md-3 col-lg-3 col-xl-3">
+				<div class="col-11 col-sm-11 col-md-5 col-lg-3 col-xl-3">
 					<a href="/trabalheconosco/cargo/listagem">
 						<div class="card text-center card-pantone731c" id="prestador">
 							<br/>
@@ -26,7 +26,7 @@
 						</div>
 					</a>		
 				</div>
-				<div class=" col-11 col-sm-11 col-md-3 col-lg-3 col-xl-3">
+				<div class=" col-11 col-sm-11 col-md-5 col-lg-3 col-xl-3">
 					<a href="/trabalheconosco/postoAtendimento/listagem">
 						<div class="card text-center card-pantone" id="usuario">
 							<br/>
@@ -42,7 +42,7 @@
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<div class="row card-columns justify-content-center">
-				<div class=" col-11 col-sm-11 col-md-3 col-lg-3 col-xl-3">
+				<div class="col-11 csol-sm-11 col-md-5 col-lg-3 col-xl-3">
 					<a href="/trabalheconosco/candidato/listagem">
 						<div class="card text-center card-pantone561c" id="usuario">
 							<br/>
@@ -54,7 +54,7 @@
 						</div>
 					</a>
 				</div>
-				<div class=" col-11 col-sm-11 col-md-3 col-lg-3 col-xl-3">
+				<div class=" col-11 csol-sm-11 col-md-5 col-lg-3 col-xl-3">
 					<a href="/trabalheconosco/vaga/listagem">
 						<div class="card text-center card-pantone192C" id="cadastroResultado">
 							<br/>
@@ -70,7 +70,7 @@
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_USER')">
 			<div class="row card-columns justify-content-center">
-				<div class=" col-11 csol-sm-11 col-md-3 col-lg-3 col-xl-3">
+				<div class=" col-11 csol-sm-11 col-md-5 col-lg-3 col-xl-3">
 					<a href="/trabalheconosco/candidato/meucurriculo">
 						<div class="card text-center card-pantone357c" id="envioResultado">
 							<i class="far fa-id-card fa-5x"></i>
@@ -81,7 +81,7 @@
 						</div>
 					</a>
 				</div>
-				<div class=" col-11 csol-sm-11 col-md-3 col-lg-3 col-xl-3">
+				<div class=" col-11 csol-sm-11 col-md-5 col-lg-3 col-xl-3">
 					<a href="/trabalheconosco/vaga/lista/aberta">
 						<div class="card text-center card-pantone381c" id="logEnvio">
 							<i class="fas fa-list-alt fa-5x"></i>
@@ -95,7 +95,7 @@
 			</div>
 		</sec:authorize>
 		<div class="row card-columns justify-content-center">
-			<div class=" col-11 csol-sm-11 col-md-3 col-lg-3 col-xl-3">
+			<div class=" col-11 csol-sm-11 col-md-5 col-lg-3 col-xl-3">
 				<a href="/trabalheconosco/logout">
 					<div class="card text-center card-pantone2627c" id="conferenciaResultado">
 						<i class="fas fa-sign-out-alt fa-5x"></i>

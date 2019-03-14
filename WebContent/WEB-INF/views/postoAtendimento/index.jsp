@@ -10,36 +10,48 @@
 	<a href="/trabalheconosco/postoAtendimento/formulario" class="btn btn-sm btn-secondary">Novo Posto de Atendimento</a>
 	<br/>
 	<br/>
-	<table class="table table-sm table-striped table-hover" id="postosAtendimento">
-		<thead>
-			<tr>
-				<th>Código</th>
-				<th>Nome</th>
-				<th>Cidade</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${postosAtendimento}" var="postoAtendimento">
+	<div class="table-responsive">
+		<table class="table table-sm table-striped table-hover" id="postosAtendimento">
+			<thead>
 				<tr>
-					<td>${postoAtendimento.id}</td>
-					<td>${postoAtendimento.nome}</td>
-					<td>${postoAtendimento.cidade.nome}</td>
-					<td>
-						<a href="/trabalheconosco/postoAtendimento/editar/${postoAtendimento.id}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-						<a href="/trabalheconosco/postoAtendimento/deletar/${postoAtendimento.id}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
-					</td>
+					<th>Código</th>
+					<th>Nome</th>
+					<th>Cidade</th>
+					<th></th>
 				</tr>
-			</c:forEach>
-		</tbody>
+			</thead>
+			<tbody>
+				<c:forEach items="${postosAtendimento}" var="postoAtendimento">
+					<tr>
+						<td>${postoAtendimento.id}</td>
+						<td>${postoAtendimento.nome}</td>
+						<td>${postoAtendimento.cidade.nome}</td>
+						<td>
+							<a href="/trabalheconosco/postoAtendimento/editar/${postoAtendimento.id}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+							<a href="/trabalheconosco/postoAtendimento/deletar/${postoAtendimento.id}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
+	</div>
 </section>
 <script>
 	$(document).ready(function() {
 	    $('#postosAtendimento').DataTable({
 	    	"oLanguage": {
 	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
-	    	}
+	    	},
+	    	"bAutoWidth":true,
+	        "bLengthChange": false,
+	        "bPaginate": true,
+	        "bFilter": true,
+	        "bSort": false,
+	        "bInfo": true,
+	        "processing": true,
+	        "bJQueryUI": false,
+	        "sPaginationType": "full_numbers",
+	        "iDisplayLength":  10,
 	    });
 	} );
 </script>

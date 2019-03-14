@@ -9,37 +9,49 @@
 <a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
 	<br/>
 	<br/>
-	<table class="table table-sm table-striped table-hover" id="vagasAbertas">
-		<thead>
-			<tr>
-				<th>Cargo</th>
-				<th>Posto de Atendimento</th>
-				<th>Cidade</th>
-				<th>Quantidade</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${vagas}" var="vaga">
+	<div class="table-responsive">
+		<table class="table table-sm table-striped table-hover" id="vagasAbertas">
+			<thead>
 				<tr>
-					<td>${vaga.cargo.nome}</td>
-					<td>${vaga.postoAtendimento.nome}</td>
-					<td>${vaga.postoAtendimento.cidade.nome}</td>
-					<td>${vaga.quantidade}</td>
-					<td>
-						<a href="/trabalheconosco/vaga/info/${vaga.id}" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
-					</td>
+					<th>Cargo</th>
+					<th>Posto de Atendimento</th>
+					<th>Cidade</th>
+					<th>Quantidade</th>
+					<th></th>
 				</tr>
-			</c:forEach>
-		</tbody>
+			</thead>
+			<tbody>
+				<c:forEach items="${vagas}" var="vaga">
+					<tr>
+						<td>${vaga.cargo.nome}</td>
+						<td>${vaga.postoAtendimento.nome}</td>
+						<td>${vaga.postoAtendimento.cidade.nome}</td>
+						<td>${vaga.quantidade}</td>
+						<td>
+							<a href="/trabalheconosco/vaga/info/${vaga.id}" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
+	</div>
 </section>
 <script>
 	$(document).ready(function() {
 	    $('#vagasAbertas').DataTable({
 	    	"oLanguage": {
 	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
-	    	}
+	    	},
+	    	"bAutoWidth":true,
+	        "bLengthChange": false,
+	        "bPaginate": true,
+	        "bFilter": true,
+	        "bSort": false,
+	        "bInfo": true,
+	        "processing": true,
+	        "bJQueryUI": false,
+	        "sPaginationType": "full_numbers",
+	        "iDisplayLength":  10,
 	    });
 	} );
 </script>

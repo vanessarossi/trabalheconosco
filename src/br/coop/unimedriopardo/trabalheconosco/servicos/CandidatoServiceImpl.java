@@ -144,25 +144,31 @@ public class CandidatoServiceImpl implements CandidatoService {
 		//salvar experiencia profissional
 		if(experienciasProfissionais != null) {
 			for (ExperienciaProfissional experienciaProfissional : experienciasProfissionais) {
-				ExperienciaProfissional ep = experienciaProfissional;
-				ep.setCandidato(novoCandidato);
-				repositorioExperienciaProfissional.save(ep);
+				if(validarExperienciaProfissional(experienciaProfissional)) {
+					ExperienciaProfissional ep = experienciaProfissional;
+					ep.setCandidato(novoCandidato);
+					repositorioExperienciaProfissional.save(ep);
+				}
 			}
 		}
 		//salvar informacao academica
 		if(formacoesAcademicas != null) {
 			for (FormacaoAcademica formacaoAcademica : formacoesAcademicas) {
-				FormacaoAcademica fa = formacaoAcademica;
-				fa.setCandidato(novoCandidato);
-				repositorioFormacaoAcademica.save(fa);
+				if(validarFormacaoAcademica(formacaoAcademica)) {
+					FormacaoAcademica fa = formacaoAcademica;
+					fa.setCandidato(novoCandidato);
+					repositorioFormacaoAcademica.save(fa);
+				}
 			}
 		}
 		//salvar cursos
 		if(cursos != null) {
 			for (Curso curso : cursos) {
-				Curso c = curso;
-				c.setCandidato(novoCandidato);
-				repositorioCurso.save(c);
+				if(validarCurso(curso)) {
+					Curso c = curso;
+					c.setCandidato(novoCandidato);
+					repositorioCurso.save(c);
+				}
 			}
 		}
 
@@ -266,7 +272,6 @@ public class CandidatoServiceImpl implements CandidatoService {
         return chave;
 	}
 
-	
 	public void enviarEmail(Usuario usuario, String senha) {
 		Properties props = new Properties();
         /** Parâmetros de conexão com servidor Gmail */
@@ -294,13 +299,13 @@ public class CandidatoServiceImpl implements CandidatoService {
                          .parse(usuario.getCandidato().getContato().getEmail());  
 
               message.setRecipients(Message.RecipientType.TO, toUser);
-              message.setSubject("Recuperação de senha - Fale Conosco Unimed Rio Pardo");//Assunto
+              message.setSubject("Nova senha - Fale Conosco Unimed Rio Pardo");//Assunto
               
               
-              String body= "Olá " + usuario.getCandidato().getNome()+", \n"+
-                      " Você solicitou uma nova senha para o sistema Fale Conosco da Unimed Rio Pardo e a sua nova senha é: "+senha+"\n"+
+              String body= "Ola " + usuario.getCandidato().getNome()+", \n"+
+                      " A sua nova senha para o sistema Fale Conosco da Unimed Rio Pardo foi gerada: "+senha+"\n"+
                       " Para alterar, acesse o seu currículo e coloque a nova senha.\n"+
-                      " Por favor, não responda este e-mail, pois o mesmo não será recebido, qualquer duvida entre em contato com o departamento de TI.";
+                      " Qualquer duvida entre em contato com o departamento de TI. \n Telefone (19) 3682-8888";
                          
               message.setText(body);
 
@@ -309,5 +314,37 @@ public class CandidatoServiceImpl implements CandidatoService {
          } catch (MessagingException e) {
               throw new RuntimeException(e);
         }
+	}
+
+	public boolean validarFormacaoAcademica(FormacaoAcademica formacaoAcademica) {
+		boolean retorno = true;
+		if (formacaoAcademica.getInstituicao() == null || 
+			formacaoAcademica.getNivelFormacao().getId() == null||
+		    formacaoAcademica.getNomeCurso() == null ||
+		    formacaoAcademica.getDataInicio() == null) {
+			retorno = false;
+		}
+		
+		return retorno;
+	}
+	
+	public boolean validarCurso(Curso curso) {
+		boolean retorno = true;
+		if (curso.getInstituicao() == null || 
+				curso.getNome() == null||
+			    curso.getDataInicio() == null) {
+				retorno = false;
+		}
+		return retorno;
+	}
+	
+	public boolean validarExperienciaProfissional(ExperienciaProfissional experienciaProfissional) {
+		boolean retorno = true;
+		if (experienciaProfissional.getNomeEmpresa() == null || 
+			experienciaProfissional.getNomeCargo() == null||
+			experienciaProfissional.getDataInicio() == null) {
+				retorno = false;
+		}
+		return retorno;
 	}
 }
