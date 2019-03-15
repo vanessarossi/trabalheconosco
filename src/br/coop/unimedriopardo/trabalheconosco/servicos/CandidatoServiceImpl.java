@@ -107,7 +107,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 		//salvar usuario
 		Usuario usuario = new Usuario();
 		usuario.setId(candidato.getUsuario().getId());
-		usuario.setLogin(candidato.getCpf().replace(".", "").replace("-", ""));
+		usuario.setLogin(candidato.getCpf());
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		usuario.setSenha(passwordEncoder.encode(candidato.getUsuario().getSenha())); 	
