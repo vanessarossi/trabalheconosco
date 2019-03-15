@@ -3,6 +3,7 @@ package br.coop.unimedriopardo.trabalheconosco.servicos;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -138,7 +139,12 @@ public class CandidatoServiceImpl implements CandidatoService {
 		novoCandidato.setContato(contato);
 		novoCandidato.setUsuario(usuario);
 		novoCandidato.setFoto(candidato.getFoto());
-		novoCandidato.setDataCadastro(candidato.getDataCadastro() == null ? new Date().toString() : candidato.getDataCadastro());
+		
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+		
+		System.out.println(format.format(new Date()));
+		
+		novoCandidato.setDataCadastro(candidato.getDataCadastro().equals("") ? format.format(new Date()) : candidato.getDataCadastro());
 		novoCandidato.setDataUltimaAtualizacao(new Date());
 		novoCandidato = repositorioCandidato.save(novoCandidato);
 		//salvar experiencia profissional
