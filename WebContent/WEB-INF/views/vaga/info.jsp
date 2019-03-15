@@ -58,7 +58,7 @@
 		<div>
 			<input type="hidden" class="form-control" id="id" name="id" value="${vaga.id}"/>
 			<a href="/trabalheconosco/vaga/lista/aberta" class="btn btn-danger">Cancelar</a>
-			<input type="submit" value="Candidatar-me à vaga" class="btn btn-success"/>
+			<!-- <input type="submit" value="Candidatar-me à vaga" class="btn btn-success"/>-->
 		</div>
 	</form>
 </section>

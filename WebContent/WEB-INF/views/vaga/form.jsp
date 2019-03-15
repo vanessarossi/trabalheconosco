@@ -111,6 +111,7 @@
 			<input type="hidden" class="form-control" id="id" name="id" value="${vaga.id}"/>
 			<a href="/trabalheconosco/vaga/listagem" class="btn btn-danger">Cancelar</a>
 			<input type="submit" value="Salvar" class="btn btn-success"/>
+			<button class="btn btn-info">Visualizar Candidaturas </button>
 		</div>
 	</form>
 </section>

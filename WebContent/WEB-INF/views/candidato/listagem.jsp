@@ -29,7 +29,7 @@
 						<td>${candidato.endereco.cidade.nome}</td>
 						<td>${candidato.escolaridade.nome}</td>
 						<td>
-							<a class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
+							<a href="/trabalheconosco/candidato/visualizar/informacoes/${candidato.id}" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
 						</td>
 					</tr>
 				</c:forEach>

@@ -40,6 +40,13 @@ public class CandidatoController {
 		return "candidato.index.tiles";
 	}
 	
+	
+	@RequestMapping("/visualizar/informacoes/{id}")
+	public String info(Model model, @PathVariable(value="id") Long id) {
+		model.addAttribute("candidato", candidatoService.pesquisarCandidatoPorId(id));
+		return "candidato.info.tiles";
+	}
+	
 	@RequestMapping("/editar")
 	public String editar(Model model, Principal principal) {
 		model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
