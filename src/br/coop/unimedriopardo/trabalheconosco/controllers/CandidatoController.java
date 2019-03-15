@@ -33,13 +33,11 @@ public class CandidatoController {
 		return "candidato.listagem.tiles";
 	}
 	
-	
 	@RequestMapping("/meucurriculo")
 	public String index(Model model, Principal principal) {
 			model.addAttribute("candidato",candidatoService.pesquisarCandidatoPorLogin(principal.getName()));
 		return "candidato.index.tiles";
 	}
-	
 	
 	@RequestMapping("/visualizar/informacoes/{id}")
 	public String info(Model model, @PathVariable(value="id") Long id) {

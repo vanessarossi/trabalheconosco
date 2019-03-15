@@ -22,110 +22,108 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="candidato")
+@Table(name = "candidato")
 public class Candidato {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
-	@Column(name="cpf", length=20)
+	@Column(name = "cpf", length = 20)
 	private String cpf;
-	
+
 	@NotBlank
-	@Column(name="nome", length=200)
+	@Column(name = "nome", length = 200)
 	private String nome;
-	
+
 	@NotBlank
-	@Column(name="estado_civil", length=15)
+	@Column(name = "estado_civil", length = 15)
 	private String estadoCivil;
-	
+
 	@NotBlank
-	@Column(name="data_nascimento", length=10)
+	@Column(name = "data_nascimento", length = 10)
 	private String dataNascimento;
-	
+
 	@NotBlank
-	@Column(name="nacionalidade", length=100)
+	@Column(name = "nacionalidade", length = 100)
 	private String nacionalidade;
-	
+
 	@NotBlank
-	@Column(name="sexo", length=1)
+	@Column(name = "sexo", length = 1)
 	private String sexo;
-	
+
 	@NotBlank
-	@Column(name="nome_mae", length=200)
+	@Column(name = "nome_mae", length = 200)
 	private String nomeMae;
-	
-	@Column(name="nome_pai", length=200)
+
+	@Column(name = "nome_pai", length = 200)
 	private String nomePai;
-	
-	@Column(name="nome_conjuge", length=100)
+
+	@Column(name = "nome_conjuge", length = 100)
 	private String nomeConjuge;
-	
-	@Column(name="pcd")
+
+	@Column(name = "pcd")
 	private Boolean pcd;
-	
-	@Column(name="descricao_pcd")
+
+	@Column(name = "descricao_pcd")
 	private String descricaoPcd;
-	
-	@Column(name="numero_pis")
+
+	@Column(name = "numero_pis")
 	private String numeroPis;
-	
+
 	@Column(name = "filho")
 	private Boolean filho;
-	
-	@Column(name="qtd_filho")
+
+	@Column(name = "qtd_filho")
 	private Integer qtdFilho;
-	
-	@Column(name="idade_filho")
+
+	@Column(name = "idade_filho")
 	private String idadeFilho;
-	
-	@Column(name="link_facebook")
+
+	@Column(name = "link_facebook")
 	private String linkFacebook;
-	
-	@Column(name="foto")
+
+	@Column(name = "foto")
 	private String foto;
-	
+
+	@Column(name = "data_cadastro")
+	private String dataCadastro;
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="data_cadastro")
-	private Date dataCadastro;
-	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="data_ultima_atualizacao")
+	@Column(name = "data_ultima_atualizacao")
 	private Date dataUltimaAtualizacao;
-	
+
 	@OneToOne
-	@JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false,foreignKey = @ForeignKey(name = "Fk_endereco_candidato"))
+	@JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_endereco_candidato"))
 	private Endereco endereco;
-	
+
 	@OneToOne
 	@JoinColumn(name = "contato_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_contato_candidato"))
 	private Contato contato;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "escolaridade_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_escolaridade_candidato"))
 	private Escolaridade escolaridade;
-	
+
 	@OneToOne
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_usuario_usuario"))
 	private Usuario usuario;
-	
-	@OneToMany(mappedBy="candidato")
-	@LazyCollection(LazyCollectionOption.FALSE) 
+
+	@OneToMany(mappedBy = "candidato")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<FormacaoAcademica> formacoesAcademicas;
-	
-	@OneToMany(mappedBy="candidato")
-	@LazyCollection(LazyCollectionOption.FALSE) 
+
+	@OneToMany(mappedBy = "candidato")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Curso> cursos;
 
-	@OneToMany(mappedBy="candidato")
-	@LazyCollection(LazyCollectionOption.FALSE) 
+	@OneToMany(mappedBy = "candidato")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ExperienciaProfissional> experienciasProfissionais;
-	
-	@OneToMany(mappedBy="candidato")
+
+	@OneToMany(mappedBy = "candidato")
 	private List<VagaxCandidato> vagasxcandidato;
 
 	public Long getId() {
@@ -272,11 +270,11 @@ public class Candidato {
 		this.foto = foto;
 	}
 
-	public Date getDataCadastro() {
+	public String getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(Date dataCadastro) {
+	public void setDataCadastro(String dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 

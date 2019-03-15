@@ -138,7 +138,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 		novoCandidato.setContato(contato);
 		novoCandidato.setUsuario(usuario);
 		novoCandidato.setFoto(candidato.getFoto());
-		novoCandidato.setDataCadastro(candidato.getDataCadastro() == null ? new Date() : candidato.getDataCadastro());
+		novoCandidato.setDataCadastro(candidato.getDataCadastro() == null ? new Date().toString() : candidato.getDataCadastro());
 		novoCandidato.setDataUltimaAtualizacao(new Date());
 		novoCandidato = repositorioCandidato.save(novoCandidato);
 		//salvar experiencia profissional
