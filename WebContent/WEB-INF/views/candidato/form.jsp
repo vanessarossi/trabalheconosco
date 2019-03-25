@@ -15,7 +15,7 @@
 			  		<div class="form-group row">
 						<div class="col-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
 							<label for="cpf">CPF</label>
-							<input type="text" class="form-control cpf" id="cpf" name="cpf" value="${candidato.cpf}" required/>
+							<input type="text" class="form-control cpf" id="cpf" name="cpf" value="${candidato.cpf}" onkeyup="somenteNumeros(this)" required/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
 							<label for="senha">Senha</label>

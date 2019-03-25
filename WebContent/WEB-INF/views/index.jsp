@@ -22,7 +22,7 @@
 						method="post">
 						<div class="form-group">
 							<label for="cpf">CPF</label> <input type="text"
-								class="form-control cpf" id="cpf" name="cpf" />
+								class="form-control cpf" id="cpf" name="cpf" onkeyup="somenteNumeros(this)" placeholder="Digite apenas os números do cpf"/>
 						</div>
 						<div class="form-group">
 							<label for="email">E-mail</label> <input type="text"
@@ -47,7 +47,7 @@
 						autocomplete="off">
 						<div class="form-group">
 							<label for="usuario">CPF</label> <input type="text"
-								class="form-control" id="login" name="login" />
+								class="form-control" id="login" name="login" onkeyup="somenteNumeros(this)" placeholder="Digite apenas os números do cpf"/>
 						</div>
 						<div class="form-group">
 							<label for="senha">Senha</label> <input type="password"

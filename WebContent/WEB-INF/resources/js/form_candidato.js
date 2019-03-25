@@ -25,6 +25,16 @@ $(document).ready(function(){
     }
 });
 
+
+function somenteNumeros(num) {
+        var er = /[^0-9]/;
+        er.lastIndex = 0;
+        var campo = num;
+        if (er.test(campo.value)) {
+          campo.value = "";
+        }
+}
+
 // adicionar experiencia profissional
 function adicionarExperienciaProfissional() {
     var nomeEmpresa = $('#nomeEmpresa').val();
