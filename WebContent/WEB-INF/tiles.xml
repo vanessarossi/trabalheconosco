@@ -84,4 +84,9 @@
 			<put-attribute name="title" value="Candidato"></put-attribute>
 			<put-attribute name="body" value="/WEB-INF/views/candidato/form.jsp"></put-attribute>
 		</definition>
+		<!-- PESQUISA AVANÇADA DE CURRICULOS -->
+		<definition name="candidato.pesquisa.avancada.tiles" extends="layout.tiles">
+			<put-attribute name="title" value="Pesquisa"></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/views/candidato/formPesquisa.jsp"></put-attribute>
+		</definition>
 </tiles-definitions>

@@ -47,7 +47,7 @@
 						autocomplete="off">
 						<div class="form-group">
 							<label for="usuario">CPF</label> <input type="text"
-								class="form-control" id="login" name="login" onkeyup="somenteNumeros(this)" placeholder="Digite apenas os números do cpf"/>
+								class="form-control" id="login" name="login" placeholder="Digite apenas os números do cpf"/>
 						</div>
 						<div class="form-group">
 							<label for="senha">Senha</label> <input type="password"

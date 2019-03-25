@@ -33,6 +33,20 @@ public class CandidatoController {
 		return "candidato.listagem.tiles";
 	}
 	
+	@RequestMapping("/pesquisa/avancada")
+	public String pesquisaAvancadao(Model model) {
+		model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
+		model.addAttribute("estados",candidatoService.pesquisarEstado());
+		return "candidato.pesquisa.avancada.tiles";
+	}
+	
+	@GetMapping("/pesquisa/avancada/filtrar")
+	public String filtrarCandidato(Model model) {
+		
+		return "candidato.pesquisa.avancada.tiles";
+	}
+	
+	
 	@RequestMapping("/meucurriculo")
 	public String index(Model model, Principal principal) {
 			model.addAttribute("candidato",candidatoService.pesquisarCandidatoPorLogin(principal.getName()));
