@@ -22,7 +22,7 @@
 							<input type="password" class="form-control" id="senha"name="usuario.senha" required/>
 						</div>
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-							<label for="nome">Nome</label>
+							<label for="nome">Nome Completo</label>
 							<input type="text" class="form-control" id="nome" name="nome" value="${candidato.nome}" required/>
 						</div>
 					</div>

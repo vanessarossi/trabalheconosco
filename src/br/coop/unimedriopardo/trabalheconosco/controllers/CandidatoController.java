@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
 import br.coop.unimedriopardo.trabalheconosco.servicos.CandidatoService;
+import br.coop.unimedriopardo.trabalheconosco.util.PesquisaCandidato;
 
 @Controller
 @RequestMapping("/candidato")
@@ -28,25 +28,24 @@ public class CandidatoController {
 	}
 	
 	@RequestMapping("/listagem")
-	public String listaCurriculos(Model model) {
-			model.addAttribute("candidatos", candidatoService.pesquisarTodos());
+	public String listagemCurriculos(Model model) {
+		model.addAttribute("candidatos",candidatoService.pesquisarTodos());
 		return "candidato.listagem.tiles";
 	}
 	
-	@RequestMapping("/pesquisa/avancada")
-	public String pesquisaAvancadao(Model model) {
-		model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
+	@PostMapping("/pesquisa/avancada/filtrar")
+	public String listagemCurriculos(Model model, PesquisaCandidato pesquisaCandidato) {
+		model.addAttribute("candidatos",candidatoService.listarComFiltro(pesquisaCandidato.getCidadeId(), pesquisaCandidato.getTextoPesquisa()));
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		return "candidato.pesquisa.avancada.tiles";
 	}
-	
-	@GetMapping("/pesquisa/avancada/filtrar")
-	public String filtrarCandidato(Model model) {
 		
+	@RequestMapping("/pesquisa/avancada")
+	public String pesquisaAvancadao(Model model) {
+		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		return "candidato.pesquisa.avancada.tiles";
 	}
-	
-	
+		
 	@RequestMapping("/meucurriculo")
 	public String index(Model model, Principal principal) {
 			model.addAttribute("candidato",candidatoService.pesquisarCandidatoPorLogin(principal.getName()));

@@ -9,51 +9,10 @@
 	<h2>Cadastro de Currículo</h2>
 </section>
 <section class="container">
-	<form class="form" action="#" method="post" enctype=multipart/form-data>
+	<form class="form" action="/trabalheconosco/candidato/pesquisa/avancada/filtrar" method="post">
 		<h3>Formulário de Pesquisa</h3>
 		<div class="card">
 			<div class="card-body">
-				<div class="form-group row">
-					<div class="col-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
-						<label for="estadoCivil">Estado Civil</label> 
-					<select id="estadoCivil" name="estadoCivil" class="form-control">
-							<option value="">Selecione</option>
-							<option value="casado">Casado(a)</option>
-							<option value="divorciado">Divorciado(a)</option>
-							<option value="separado">Separado(a)</option>
-							<option value="solteiro">Solteiro(a)</option>
-							<option value="viuvo">Viúvo(a)</option>
-					</select>
-					</div>
-					<div class="col-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
-						<label for="sexo">Sexo</label> <select id="sexo" name="sexo" class="form-control">
-							<option value="">Selecione</option>
-							<option value="F">Feminino</option>
-							<option value="M">Masculino</option>
-						</select>
-					</div>
-					<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-						<label class="label-control">Possui deficiência </label> <br />
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" id="ativo" name="pcd" value="true" /> 
-								<label class="form-check-label">Sim</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" id="ativo"name="pcd" value="false" /> 
-							<label class="form-check-label">Não</label>
-						</div>
-					</div>
-					<div class="col-12 col-sm-12 col-md-7 col-lg-4 col-xl-4">
-						<label for="escolaridade">Escolaridade</label> 
-						<select id="escolaridade" name="escolaridade.id" class="form-control">
-							<option value="">Selecione</option>
-							<c:forEach items="${escolaridades}" var="escolaridade">
-								<option value="${escolaridade.id}"
-									<c:if test="${escolaridade.id eq candidato.escolaridade.id}">selected</c:if>>${escolaridade.nome}</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
 				<div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 						<label for="estado">Estado</label>
@@ -69,15 +28,14 @@
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 						<label for="cidade">Cidade</label> <input type="hidden"
 							id="cidadeEscolhida" value="${candidato.endereco.cidade.id}" />
-						<select class="form-control" id="cidade" name="endereco.cidade.id"
-							required>
+						<select class="form-control" id="cidade" name="cidadeId" required>
 						</select>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-						<label for="cargo">O que procura nas formações ou cursos ?</label>
-						<input type="text" class="form-control" id="cargo" name="cargo" />
+						<label for="cargo">O que procura nas formações, cursos ou experiencias profissionais ?</label>
+						<input type="text" class="form-control" id="textoPesquisa" name="textoPesquisa" />
 					</div>
 				</div>
 				<a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
@@ -92,21 +50,19 @@
 				<tr>
 					<th>Nome</th>
 					<th>Estado Civil</th>
-					<th>Cidade</th>
-					<th>Escolaridade</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><a href="/trabalheconosco/candidato/visualizar/informacoes/${candidato.id}"
-						class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
-					</td>
-				</tr>
+				<c:forEach items="${candidatos}" var="candidato">
+					<tr>
+						<td>${candidato.nome}</td>
+						<td>${candidato.estadoCivil}</td>
+						<td><a href="/trabalheconosco/candidato/visualizar/informacoes/${candidato.id}"
+							class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

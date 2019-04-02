@@ -2,6 +2,8 @@ package br.coop.unimedriopardo.trabalheconosco.servicos;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
@@ -9,6 +11,7 @@ import br.coop.unimedriopardo.trabalheconosco.entidades.Escolaridade;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Estado;
 import br.coop.unimedriopardo.trabalheconosco.entidades.NivelFormacao;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Usuario;
+import br.coop.unimedriopardo.trabalheconosco.util.CandidatoView;
 
 public interface CandidatoService {
 	
@@ -24,9 +27,10 @@ public interface CandidatoService {
 	public void deletarFormacaoAcademica(Long id);
 	public void deletarExperienciaProfissional(Long id);
 	public void deletarCurso(Long id);
+	public Page<Candidato> pesquisarTodos(Pageable pageable);
 	public List<Candidato> pesquisarTodos();
 	public void gerarNovaSenha(String cpf);
 	public void enviarEmail(Usuario usuario, String senha);
-
+	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa);
 	
 }

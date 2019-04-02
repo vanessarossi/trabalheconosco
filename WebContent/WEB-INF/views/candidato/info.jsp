@@ -25,7 +25,7 @@
 						class="form-control" id="cpf" value="${candidato.cpf}" />
 				</div>
 				<div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-					<label for="nome">Nome</label> <input type="text" readonly
+					<label for="nome">Nome Completo</label> <input type="text" readonly
 						class="form-control" id="nome" value="${candidato.nome}" />
 				</div>
 			</div>

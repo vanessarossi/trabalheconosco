@@ -5,9 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<section class="text-center">
-	<p class="lead"></p>
-</section>
+<br/>
 <section id="forms">
 	<div class="row card-columns justify-content-center">
 		<div class="col-11 col-sm-11 col-md-5 col-lg-3 col-xl-3">
@@ -64,6 +62,10 @@
 			</div>
 		</div>
 	</div>
+	
+</section>
+<section class="row justify-content-center text-center" >
+	<h6>Utilize preferencialmente o navegador Google Chrome <i class="fab fa-chrome"></i>  e Firefox <i class="fab fa-firefox"></i>.</h6>
 </section>
 <spring:url value="/resources/js/form_login.js" var="formLoginJS"></spring:url>
 <script type="text/javascript" src="${formLoginJS}"></script>

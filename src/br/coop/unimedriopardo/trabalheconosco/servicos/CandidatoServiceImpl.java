@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -19,6 +20,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,6 +47,7 @@ import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioExperienci
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioFormacaoAcademica;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioNivelFormacao;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioUsuario;
+import br.coop.unimedriopardo.trabalheconosco.util.CandidatoView;
 
 @Service
 @Transactional
@@ -142,8 +146,6 @@ public class CandidatoServiceImpl implements CandidatoService {
 		
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		
-		System.out.println(format.format(new Date()));
-		
 		novoCandidato.setDataCadastro(candidato.getDataCadastro().equals("") ? format.format(new Date()) : candidato.getDataCadastro());
 		novoCandidato.setDataUltimaAtualizacao(new Date());
 		novoCandidato = repositorioCandidato.save(novoCandidato);
@@ -223,8 +225,9 @@ public class CandidatoServiceImpl implements CandidatoService {
 	}
 
 	@Override
-	public List<Candidato> pesquisarTodos() {
-		return repositorioCandidato.findAll(new Sort("dataCadastro"));
+	public Page<Candidato> pesquisarTodos(Pageable pageable) {
+		Page<Candidato> candidatos = repositorioCandidato.findAll(pageable);
+		return candidatos;
 	}
 
 	@Override
@@ -352,5 +355,25 @@ public class CandidatoServiceImpl implements CandidatoService {
 				retorno = false;
 		}
 		return retorno;
+	}
+
+	@Override
+	public List<Candidato> pesquisarTodos() {
+		return repositorioCandidato.findAll();
+	}
+
+	@Override
+	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa) {
+		String texto = '%'+textoPesquisa+'%';
+		List<Object[]> objetos = repositorioCandidato.pesquisaComFiltro(cidadeId, texto);
+		List<CandidatoView> candidatos = new ArrayList<CandidatoView>();
+		for (Object[] objeto : objetos) {
+			CandidatoView candidatoView = new CandidatoView();
+			candidatoView.setId(objeto[0].toString());
+			candidatoView.setNome(objeto[1].toString());
+			candidatoView.setEstadoCivil(objeto[2].toString());
+			candidatos.add(candidatoView);		
+		} 
+		return candidatos;
 	}
 }
