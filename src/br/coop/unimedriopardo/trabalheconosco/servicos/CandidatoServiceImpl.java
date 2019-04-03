@@ -424,9 +424,7 @@ public class CandidatoServiceImpl implements CandidatoService {
                  message.setSubject("Informativo - Trabalhe Conosco Unimed Rio Pardo");//Assunto
                   
                  String body= "Ola " + candidato.getNome()+", \n"+
-                         " Fizemos uma atualização em nosso sistema trabalhe conosco, \n"+
-                         " agora você pode definir em seu cadastro 3 opções de cargos que deseja ser contratado \n"+
-                         " isso nos ajudará a encontrar o seu cirrículo, sempre que tivermos um processo de seleção. \n"+
+                         " Mantenha seu cadastro sempre atualizado ! \n"+
                          " Qualquer duvida entre em contato com o departamento de TI. \n Telefone (19) 3682-8888";            
                  message.setText(body);
                  /**Método para enviar a mensagem criada*/
