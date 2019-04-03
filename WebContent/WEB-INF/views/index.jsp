@@ -65,7 +65,7 @@
 	
 </section>
 <section class="row justify-content-center text-center" >
-	<h6>Utilize preferencialmente o navegador Google Chrome <i class="fab fa-chrome"></i>  e Firefox <i class="fab fa-firefox"></i>.</h6>
+	<h6>Utilize o navegador Google Chrome <i class="fab fa-chrome"></i>  e Firefox <i class="fab fa-firefox"></i>.</h6>
 </section>
 <spring:url value="/resources/js/form_login.js" var="formLoginJS"></spring:url>
 <script type="text/javascript" src="${formLoginJS}"></script>

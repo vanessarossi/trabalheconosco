@@ -19,7 +19,7 @@ public class Cargo {
 
 	@Column(length=200)
 	private String nome;
-	
+		
 	@OneToMany(mappedBy="cargo")
 	private List<Vaga> vagas;
 
@@ -46,7 +46,4 @@ public class Cargo {
 	public void setVagas(List<Vaga> vagas) {
 		this.vagas = vagas;
 	}
-
-	
-	
 }

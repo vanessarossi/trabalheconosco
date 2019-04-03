@@ -3,8 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <section class="text-center">
 	<h2>Cadastro de Currículo</h2>
 </section>
@@ -29,6 +28,17 @@
 						<label for="cidade">Cidade</label> <input type="hidden"
 							id="cidadeEscolhida" value="${candidato.endereco.cidade.id}" />
 						<select class="form-control" id="cidade" name="cidadeId" required>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+						<label for="cargo">Cargos</label> 
+						<select class="form-control" id="cargo" name="cargoId">
+							<option value="">Selecione</option>
+							<c:forEach items="${cargos}" var="cargo">
+								<option value="${cargo.id}">${cargo.nome}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>

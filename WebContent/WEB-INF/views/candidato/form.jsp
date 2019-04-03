@@ -205,6 +205,41 @@
 				</div>
 			  </div>
 			</div>
+			
+			<h3>Cargos que você gostaria de ser contratada</h3>
+			<div class="card">
+			  <div class="card-body">
+				<div class="form-group row">
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<label for="opcaoUm">Primeira Opção</label> 
+							<select class="form-control" id="opcaoUm" name="opcaoUm.id" required>
+								<option value="">Selecione</option>
+								<c:forEach items="${cargos}" var="cargo">
+									<option value="${cargo.id}" <c:if test="${cargo.id eq candidato.opcaoUm.id}">selected</c:if> >${cargo.nome}</option>
+								</c:forEach>
+							</select>
+						</div>
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+						<label for="opcaoDois">Segunda Opção</label> 
+						<select class="form-control" id="opcaoDois" name="opcaoDois.id" required>
+							<option value="">Selecione</option>
+							<c:forEach items="${cargos}" var="cargo">
+								<option value="${cargo.id}" <c:if test="${cargo.id eq candidato.opcaoDois.id}">selected</c:if> >${cargo.nome}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<label for="opcaoTres">Terceira Opção</label> 
+							<select class="form-control" id="opcaoTres" name="opcaoTres.id" required>
+								<option value="">Selecione</option>
+								<c:forEach items="${cargos}" var="cargo">
+									<option value="${cargo.id}" <c:if test="${cargo.id eq candidato.opcaoTres.id}">selected</c:if> >${cargo.nome}</option>
+								</c:forEach>
+							</select>
+						</div>
+				</div>
+			  </div>
+			</div>
 			<h3>Experiência Profissional</h3>
 			<div class="card">
 			  <div class="card-body">

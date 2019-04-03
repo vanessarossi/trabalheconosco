@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
+import br.coop.unimedriopardo.trabalheconosco.entidades.Cargo;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Contato;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Curso;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Endereco;
@@ -38,6 +39,7 @@ import br.coop.unimedriopardo.trabalheconosco.entidades.FormacaoAcademica;
 import br.coop.unimedriopardo.trabalheconosco.entidades.NivelFormacao;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Usuario;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioCandidato;
+import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioCargo;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioContato;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioCurso;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioEndereco;
@@ -63,13 +65,15 @@ public class CandidatoServiceImpl implements CandidatoService {
 	 private final RepositorioExperienciaProfisional repositorioExperienciaProfissional;
 	 private final RepositorioFormacaoAcademica repositorioFormacaoAcademica;
 	 private final RepositorioCurso repositorioCurso;
+	 private final RepositorioCargo repositorioCargo;
 	
 	@Autowired
 	public CandidatoServiceImpl(RepositorioCandidato repositorioCandidato, RepositorioNivelFormacao repositorioNivelFormacao,
 			RepositorioEstado repositorioEstado, RepositorioEscolaridade repositorioEscolaridade, 
 			RepositorioContato repositorioContato, RepositorioEndereco repositorioEndereco,
 			RepositorioUsuario repositorioUsuario, RepositorioExperienciaProfisional repositorioExperienciaProfisional,
-			RepositorioFormacaoAcademica repositorioFormacaoAcademica, RepositorioCurso repositorioCurso) {
+			RepositorioFormacaoAcademica repositorioFormacaoAcademica, RepositorioCurso repositorioCurso,
+			RepositorioCargo repositorioCargo) {
 		super();
 		this.repositorioCandidato = repositorioCandidato;
 		this.repositorioNivelFormacao = repositorioNivelFormacao;
@@ -81,6 +85,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 		this.repositorioExperienciaProfissional = repositorioExperienciaProfisional;
 		this.repositorioFormacaoAcademica = repositorioFormacaoAcademica;
 		this.repositorioCurso = repositorioCurso;
+		this.repositorioCargo = repositorioCargo;
 	}
 
 	@Override
@@ -143,6 +148,9 @@ public class CandidatoServiceImpl implements CandidatoService {
 		novoCandidato.setContato(contato);
 		novoCandidato.setUsuario(usuario);
 		novoCandidato.setFoto(candidato.getFoto());
+		novoCandidato.setOpcaoUm(candidato.getOpcaoUm());
+		novoCandidato.setOpcaoDois(candidato.getOpcaoDois());
+		novoCandidato.setOpcaoTres(candidato.getOpcaoTres());
 		
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		
@@ -375,5 +383,10 @@ public class CandidatoServiceImpl implements CandidatoService {
 			candidatos.add(candidatoView);		
 		} 
 		return candidatos;
+	}
+
+	@Override
+	public List<Cargo> pesquisarCargos() {
+		return repositorioCargo.findAll(new Sort("nome"));
 	}
 }

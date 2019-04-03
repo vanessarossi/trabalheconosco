@@ -107,6 +107,18 @@ public class Candidato {
 	@JoinColumn(name = "escolaridade_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_escolaridade_candidato"))
 	private Escolaridade escolaridade;
 
+	@ManyToOne
+	@JoinColumn(name = "opcao_um_cargo_id", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "Fk_candidato_opcao_um"))
+	private Cargo opcaoUm;
+		
+	@ManyToOne
+	@JoinColumn(name = "opcao_dois_cargo_id", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "Fk_candidato_opcao_dois"))
+	private Cargo opcaoDois;
+	
+	@ManyToOne
+	@JoinColumn(name = "opcao_tres_cargo_id", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "Fk_candidato_opcao_tres"))
+	private Cargo opcaoTres;
+	
 	@OneToOne
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_usuario_usuario"))
 	private Usuario usuario;
@@ -122,7 +134,7 @@ public class Candidato {
 	@OneToMany(mappedBy = "candidato")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ExperienciaProfissional> experienciasProfissionais;
-
+		
 	@OneToMany(mappedBy = "candidato")
 	private List<VagaxCandidato> vagasxcandidato;
 
@@ -308,6 +320,30 @@ public class Candidato {
 
 	public void setEscolaridade(Escolaridade escolaridade) {
 		this.escolaridade = escolaridade;
+	}
+
+	public Cargo getOpcaoUm() {
+		return opcaoUm;
+	}
+
+	public void setOpcaoUm(Cargo opcaoUm) {
+		this.opcaoUm = opcaoUm;
+	}
+
+	public Cargo getOpcaoDois() {
+		return opcaoDois;
+	}
+
+	public void setOpcaoDois(Cargo opcaoDois) {
+		this.opcaoDois = opcaoDois;
+	}
+
+	public Cargo getOpcaoTres() {
+		return opcaoTres;
+	}
+
+	public void setOpcaoTres(Cargo opcaoTres) {
+		this.opcaoTres = opcaoTres;
 	}
 
 	public Usuario getUsuario() {

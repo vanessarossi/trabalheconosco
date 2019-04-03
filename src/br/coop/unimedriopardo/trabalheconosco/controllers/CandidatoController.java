@@ -36,6 +36,7 @@ public class CandidatoController {
 	@PostMapping("/pesquisa/avancada/filtrar")
 	public String listagemCurriculos(Model model, PesquisaCandidato pesquisaCandidato) {
 		model.addAttribute("candidatos",candidatoService.listarComFiltro(pesquisaCandidato.getCidadeId(), pesquisaCandidato.getTextoPesquisa()));
+		model.addAttribute("cargos", candidatoService.pesquisarCargos());
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		return "candidato.pesquisa.avancada.tiles";
 	}
@@ -43,6 +44,7 @@ public class CandidatoController {
 	@RequestMapping("/pesquisa/avancada")
 	public String pesquisaAvancadao(Model model) {
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
+		model.addAttribute("cargos", candidatoService.pesquisarCargos());
 		return "candidato.pesquisa.avancada.tiles";
 	}
 		
@@ -64,6 +66,7 @@ public class CandidatoController {
 		model.addAttribute("niveisFormacao",candidatoService.pesquisarNivelFormacao());
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		model.addAttribute("candidato",candidatoService.pesquisarCandidatoPorLogin(principal.getName()));
+		model.addAttribute("cargos", candidatoService.pesquisarCargos());
 		return "candidato.form.tiles";
 	}
 	
@@ -72,6 +75,7 @@ public class CandidatoController {
 		model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
 		model.addAttribute("niveisFormacao",candidatoService.pesquisarNivelFormacao());
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
+		model.addAttribute("cargos", candidatoService.pesquisarCargos());
 		return "candidato.form.tiles";
 	}
 	
@@ -82,6 +86,7 @@ public class CandidatoController {
 			model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
 			model.addAttribute("niveisFormacao",candidatoService.pesquisarNivelFormacao());
 			model.addAttribute("estados",candidatoService.pesquisarEstado());
+			model.addAttribute("cargos", candidatoService.pesquisarCargos());
 			model.addAttribute("candidato", candidato);
 			return "candidato.form.tiles";
 		}else {

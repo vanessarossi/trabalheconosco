@@ -188,6 +188,25 @@
 			</div>
 		</div>
 	</div>
+	<h3>Cargos que gostaria de ser contratada</h3>
+			<div class="card">
+			  <div class="card-body">
+				<div class="form-group row">
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+						<label for="opcaoUm">Primeira Opção</label>
+						<input type="text" readonly class="form-control" id="opcaoUm" value="${candidato.opcaoUm.nome}"/> 
+					</div>
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+						<label for="opcaoDois">Segunda Opção</label> 
+						<input type="text" readonly class="form-control" id="opcaoDois" value="${candidato.opcaoDois.nome}"/> 
+					</div>
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+						<label for="opcaoTres">Terceira Opção</label> 
+						<input type="text" readonly class="form-control" id="opcaoTres" value="${candidato.opcaoTres.nome}"/> 	
+					</div>
+				</div>
+			  </div>
+			</div>
 	<h3>Experiência Profissional</h3>
 	<div class="table-responsive">
 		<table class="table" id="tabelaExperienciaProfissional">
