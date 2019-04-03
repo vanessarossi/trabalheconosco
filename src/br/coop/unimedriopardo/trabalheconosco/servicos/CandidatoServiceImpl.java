@@ -316,7 +316,7 @@ public class CandidatoServiceImpl implements CandidatoService {
                          .parse(usuario.getCandidato().getContato().getEmail());  
 
               message.setRecipients(Message.RecipientType.TO, toUser);
-              message.setSubject("Nova senha - Fale Conosco Unimed Rio Pardo");//Assunto
+              message.setSubject("Nova senha - Trabalhe Conosco Unimed Rio Pardo");//Assunto
               
               
               String body= "Ola " + usuario.getCandidato().getNome()+", \n"+
@@ -389,4 +389,53 @@ public class CandidatoServiceImpl implements CandidatoService {
 	public List<Cargo> pesquisarCargos() {
 		return repositorioCargo.findAll(new Sort("nome"));
 	}
+
+	@Override
+	public void enviarMsgEmail() {
+		Properties props = new Properties();
+        /** Parâmetros de conexão com servidor Gmail */
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                         protected PasswordAuthentication getPasswordAuthentication() 
+                         {
+                               return new PasswordAuthentication("unimed250@gmail.com", "uni250rp");
+                         }
+                    });
+
+        /** Ativa Debug para sessão */
+        session.setDebug(true);
+        try {
+        	
+        	List<Candidato> candidatos = repositorioCandidato.findAll();
+        	
+        	for (Candidato candidato : candidatos) {
+        		 Message message = new MimeMessage(session);
+                 message.setFrom(new InternetAddress("unimed250@gmail.com")); //Remetente
+
+                 Address[] toUser = InternetAddress.parse(candidato.getContato().getEmail()); //destinatario
+
+                 message.setRecipients(Message.RecipientType.TO, toUser);
+                 message.setSubject("Informativo - Trabalhe Conosco Unimed Rio Pardo");//Assunto
+                  
+                 String body= "Ola " + candidato.getNome()+", \n"+
+                         " Fizemos uma atualização em nosso sistema trabalhe conosco, \n"+
+                         " agora você pode definir em seu cadastro 3 opções de cargos que deseja ser contratado \n"+
+                         " isso nos ajudará a encontrar o seu cirrículo, sempre que tivermos um processo de seleção. \n"+
+                         " Qualquer duvida entre em contato com o departamento de TI. \n Telefone (19) 3682-8888";            
+                 message.setText(body);
+                 /**Método para enviar a mensagem criada*/
+                 Transport.send(message);
+			}
+           
+         } catch (MessagingException e) {
+              throw new RuntimeException(e);
+        }
+	}
+
 }

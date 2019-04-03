@@ -33,6 +33,13 @@ public class CandidatoController {
 		return "candidato.listagem.tiles";
 	}
 	
+	
+	@RequestMapping("/enviarEmail")
+	public String enviarEmail() {
+		candidatoService.enviarMsgEmail();
+		return "home.tiles";
+	}
+	
 	@PostMapping("/pesquisa/avancada/filtrar")
 	public String listagemCurriculos(Model model, PesquisaCandidato pesquisaCandidato) {
 		model.addAttribute("candidatos",candidatoService.listarComFiltro(pesquisaCandidato.getCidadeId(), pesquisaCandidato.getTextoPesquisa()));

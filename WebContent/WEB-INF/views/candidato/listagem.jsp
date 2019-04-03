@@ -8,6 +8,7 @@
 <section id="conteudo">
 <a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
 <a href="/trabalheconosco/candidato/pesquisa/avancada" class="btn btn-sm btn-info">Pesquisa com filtros</a>
+<a href="/trabalheconosco/candidato/enviarEmail" class="btn btn-sm btn-light">Enviar e-mail atualização</a>
 	<br/>
 	<br/>
 	<div class="table-responsive">

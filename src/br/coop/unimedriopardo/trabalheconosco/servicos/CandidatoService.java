@@ -34,5 +34,6 @@ public interface CandidatoService {
 	public void enviarEmail(Usuario usuario, String senha);
 	public List<Cargo> pesquisarCargos();
 	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa);
+	public void enviarMsgEmail();
 	
 }
