@@ -1,6 +1,12 @@
 package br.coop.unimedriopardo.trabalheconosco.controllers;
 
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -38,6 +44,20 @@ public class CandidatoController {
 	public String enviarEmail() {
 		candidatoService.enviarMsgEmail();
 		return "home.tiles";
+	}
+	
+	
+	@GetMapping("/imprimir/{id}")
+	public void enviarEmail (HttpServletResponse response,@PathVariable(value="id") Long id) {
+		File file = candidatoService.imprimirCurriculo(candidatoService.pesquisarCandidatoPorId(id));
+		InputStream inputStream = null;
+		 try {
+			 	inputStream = new FileInputStream(file);
+		      org.apache.commons.io.IOUtils.copy(inputStream, response.getOutputStream());
+		      response.flushBuffer();
+		    } catch (IOException ex) {
+		      throw new RuntimeException("IOError writing file to output stream");
+		    }
 	}
 	
 	@PostMapping("/pesquisa/avancada/filtrar")

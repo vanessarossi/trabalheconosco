@@ -9,6 +9,7 @@
 </section>
 <section id="conteudo">
 	<a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
+	<a href="/trabalheconosco/candidato/imprimir/${candidato.id}" class="btn btn-sm btn-secondary" target="_blank">Imprimir</a>
 	<br /> <br />
 	<h3>Dados Pessoais</h3>
 	<div class="card">

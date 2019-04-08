@@ -1,11 +1,11 @@
 package br.coop.unimedriopardo.trabalheconosco.servicos;
 
-import java.util.List;
 
+import java.io.File;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
-
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Cargo;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Escolaridade;
@@ -35,5 +35,5 @@ public interface CandidatoService {
 	public List<Cargo> pesquisarCargos();
 	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa);
 	public void enviarMsgEmail();
-	
+	public File imprimirCurriculo(Candidato candidato);
 }

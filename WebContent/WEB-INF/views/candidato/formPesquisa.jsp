@@ -12,6 +12,17 @@
 		<h3>Formulário de Pesquisa</h3>
 		<div class="card">
 			<div class="card-body">
+			<div class="form-group row">
+				<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+					<label for="cargo">Cargos</label> 
+					<select class="form-control" id="cargo" name="cargoId">
+						<option value="">Selecione</option>
+						<c:forEach items="${cargos}" var="cargo">
+							<option value="${cargo.id}">${cargo.nome}</option>
+						</c:forEach>
+					</select>
+					</div>
+				</div>
 				<div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 						<label for="estado">Estado</label>
@@ -31,17 +42,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group row">
-					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
-						<label for="cargo">Cargos</label> 
-						<select class="form-control" id="cargo" name="cargoId">
-							<option value="">Selecione</option>
-							<c:forEach items="${cargos}" var="cargo">
-								<option value="${cargo.id}">${cargo.nome}</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
+				
 				<div class="form-group row">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 						<label for="cargo">O que procura nas formações, cursos ou experiencias profissionais ?</label>

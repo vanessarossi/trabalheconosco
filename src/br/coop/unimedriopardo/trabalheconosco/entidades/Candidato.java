@@ -221,6 +221,13 @@ public class Candidato {
 	public Boolean getPcd() {
 		return pcd;
 	}
+	
+	public String getPcdString() {
+		if(pcd == null || pcd == false) {
+			return "Não";
+		}
+		return "Sim";
+	}
 
 	public void setPcd(Boolean pcd) {
 		this.pcd = pcd;
@@ -245,6 +252,13 @@ public class Candidato {
 	public Boolean getFilho() {
 		return filho;
 	}
+	
+	public String getFilhoString() {
+		if(filho == null || filho == false) {
+			return "Não";
+		}
+		return "Sim";
+	}
 
 	public void setFilho(Boolean filho) {
 		this.filho = filho;
@@ -252,6 +266,13 @@ public class Candidato {
 
 	public Integer getQtdFilho() {
 		return qtdFilho;
+	}
+	
+	public String getQtdFilhoString() {
+		if(filho == null ) {
+			return "0";
+		}
+		return qtdFilho.toString();
 	}
 
 	public void setQtdFilho(Integer qtdFilho) {

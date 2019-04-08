@@ -1,6 +1,7 @@
 package br.coop.unimedriopardo.trabalheconosco.servicos;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -50,6 +51,8 @@ import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioFormacaoAc
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioNivelFormacao;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioUsuario;
 import br.coop.unimedriopardo.trabalheconosco.util.CandidatoView;
+import br.coop.unimedriopardo.trabalheconosco.util.GeradorDeImpressao;
+import net.sf.jasperreports.engine.JRException;
 
 @Service
 @Transactional
@@ -104,7 +107,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 	}
 
 	@Override
-	public void salvar(Candidato candidato, MultipartFile file) {
+	public void salvar(Candidato candidato, MultipartFile file) {	
 		List<FormacaoAcademica> formacoesAcademicas = candidato.getFormacoesAcademicas();
 		List<Curso> cursos = candidato.getCursos();
 		List<ExperienciaProfissional> experienciasProfissionais = candidato.getExperienciasProfissionais();
@@ -434,6 +437,20 @@ public class CandidatoServiceImpl implements CandidatoService {
          } catch (MessagingException e) {
               throw new RuntimeException(e);
         }
+	}
+
+	@Override
+	public File imprimirCurriculo(Candidato candidato) {
+		GeradorDeImpressao geradorDeImpressao = new GeradorDeImpressao();
+		File file = null;
+		try {
+			file =  geradorDeImpressao.gerarImpressao(candidato);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		return file;
 	}
 
 }
