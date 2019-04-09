@@ -374,9 +374,25 @@ public class CandidatoServiceImpl implements CandidatoService {
 	}
 
 	@Override
-	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa) {
-		String texto = '%'+textoPesquisa+'%';
-		List<Object[]> objetos = repositorioCandidato.pesquisaComFiltro(cidadeId, texto);
+	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa, Long cargoId) {
+		
+		List<Object[]> objetos = new ArrayList<Object[]>();
+		
+		//cidade  + cargo
+		if (cidadeId != null && cargoId != null && textoPesquisa.equals("")) {
+			objetos = repositorioCandidato.pesquisarComFiltroCargoCidade(cargoId, cidadeId);
+		//cidade 	
+		}if (cidadeId != null && cargoId == null && textoPesquisa.equals("")) {
+			objetos = repositorioCandidato.pesquisarComFiltroCidade(cidadeId);
+		//cargo	
+		}if (cidadeId == null && cargoId != null && textoPesquisa.equals("") ) {
+			objetos = repositorioCandidato.pesquisarComFiltroCargo(cargoId);
+		//pesquisa completa
+		}if (cidadeId != null && cargoId != null && (!textoPesquisa.equals(""))) {
+			String texto = '%'+textoPesquisa+'%';
+			objetos = repositorioCandidato.pesquisarComFiltroCidadeTextoCargo(cidadeId, texto, cargoId);
+		}
+
 		List<CandidatoView> candidatos = new ArrayList<CandidatoView>();
 		for (Object[] objeto : objetos) {
 			CandidatoView candidatoView = new CandidatoView();

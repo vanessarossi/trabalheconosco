@@ -33,7 +33,7 @@ public interface CandidatoService {
 	public void gerarNovaSenha(String cpf);
 	public void enviarEmail(Usuario usuario, String senha);
 	public List<Cargo> pesquisarCargos();
-	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa);
+	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa, Long cargoId);
 	public void enviarMsgEmail();
 	public File imprimirCurriculo(Candidato candidato);
 }

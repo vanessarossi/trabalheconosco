@@ -44,7 +44,7 @@
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
 						<label for="cidade">Cidade</label> <input type="hidden"
 							id="cidadeEscolhida" value="${candidato.endereco.cidade.id}" />
-						<select class="form-control" id="cidade" name="cidadeId" required>
+						<select class="form-control" id="cidade" name="cidadeId">
 						</select>
 					</div>
 				</div>
@@ -65,7 +65,6 @@
 			<thead>
 				<tr>
 					<th>Nome</th>
-					<th>Estado Civil</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -73,7 +72,6 @@
 				<c:forEach items="${candidatos}" var="candidato">
 					<tr>
 						<td>${candidato.nome}</td>
-						<td>${candidato.estadoCivil}</td>
 						<td><a href="/trabalheconosco/candidato/visualizar/informacoes/${candidato.id}"
 							class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
 						</td>
@@ -85,3 +83,22 @@
 </section>
 <spring:url value="/resources/js/estadocidade.js" var="cidadeEstadoJS"></spring:url>
 <script type="text/javascript" src="${cidadeEstadoJS}"></script>
+<script>
+	$(document).ready(function() {
+	    $('#candidatos').DataTable({
+	    	"oLanguage": {
+	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
+	    	},
+	    	"bAutoWidth":true,
+	        "bLengthChange": false,
+	        "bPaginate": true,
+	        "bFilter": true,
+	        "bSort": false,
+	        "bInfo": true,
+	        "processing": true,
+	        "bJQueryUI": false,
+	        "sPaginationType": "full_numbers",
+	        "iDisplayLength":  10,
+	    });
+	} );
+</script>

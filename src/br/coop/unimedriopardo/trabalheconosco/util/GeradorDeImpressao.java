@@ -69,9 +69,9 @@ public class GeradorDeImpressao {
 		map.put("numeroContato",candidato.getContato().getNumeroContato());
 		map.put("email",candidato.getContato().getEmail());
 		
-		map.put("primeiraOpcao",candidato.getOpcaoUm().getNome());
-		map.put("segundaOpcao",candidato.getOpcaoDois().getNome());
-		map.put("terceiraOpcao",candidato.getOpcaoTres().getNome());
+		map.put("primeiraOpcao",candidato.getOpcaoUm() == null ? "" : candidato.getOpcaoUm().getNome());
+		map.put("segundaOpcao",candidato.getOpcaoDois() == null ? "" : candidato.getOpcaoDois().getNome());
+		map.put("terceiraOpcao",candidato.getOpcaoTres() == null ? "" : candidato.getOpcaoTres().getNome());
 				
 		return map;
 	}

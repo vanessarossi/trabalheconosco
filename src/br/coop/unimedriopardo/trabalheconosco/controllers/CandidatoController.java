@@ -62,7 +62,7 @@ public class CandidatoController {
 	
 	@PostMapping("/pesquisa/avancada/filtrar")
 	public String listagemCurriculos(Model model, PesquisaCandidato pesquisaCandidato) {
-		model.addAttribute("candidatos",candidatoService.listarComFiltro(pesquisaCandidato.getCidadeId(), pesquisaCandidato.getTextoPesquisa()));
+		model.addAttribute("candidatos",candidatoService.listarComFiltro(pesquisaCandidato.getCidadeId(), pesquisaCandidato.getTextoPesquisa(), pesquisaCandidato.getCargoId()));
 		model.addAttribute("cargos", candidatoService.pesquisarCargos());
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		return "candidato.pesquisa.avancada.tiles";
