@@ -20,12 +20,12 @@ import net.sf.jasperreports.engine.util.JRLoader;
 public class GeradorDeImpressao {
 
 	public File gerarImpressao(Candidato candidato) throws JRException, URISyntaxException, IOException {	
-		File file = new File(System.getProperty("catalina.home") + "/webapps/trabalheconosco/WEB-INF/resources/jasper/curriculo.jasper");
+		File file = new File(System.getProperty("catalina.home")+"/webapps/trabalheconosco/WEB-INF/resources/jasper/curriculo.jasper");
         InputStream jasperStream = new FileInputStream(file);
 		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);	    
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getMap(candidato), new JRBeanCollectionDataSource(candidato.getExperienciasProfissionais()));
 	   
-	    String caminho = System.getProperty("catalina.home") + "/webapps/curriculos";
+	    String caminho = System.getProperty("catalina.home")+"/webapps/curriculos";
 		 File pasta;
 		   pasta = new File(caminho);
 		   if (!pasta.exists()){
