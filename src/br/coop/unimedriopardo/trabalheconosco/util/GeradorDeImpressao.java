@@ -1,9 +1,11 @@
 package br.coop.unimedriopardo.trabalheconosco.util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
@@ -17,9 +19,9 @@ import net.sf.jasperreports.engine.util.JRLoader;
 
 public class GeradorDeImpressao {
 
-	
-	public File gerarImpressao(Candidato candidato) throws JRException, FileNotFoundException {
-		InputStream jasperStream = this.getClass().getResourceAsStream("curriculo.jasper");	    
+	public File gerarImpressao(Candidato candidato) throws JRException, URISyntaxException, IOException {	
+		File file = new File(System.getProperty("catalina.home") + "/webapps/trabalheconosco/WEB-INF/resources/jasper/curriculo.jasper");
+        InputStream jasperStream = new FileInputStream(file);
 		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);	    
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getMap(candidato), new JRBeanCollectionDataSource(candidato.getExperienciasProfissionais()));
 	   

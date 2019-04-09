@@ -43,7 +43,7 @@
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<div class="row card-columns justify-content-center">
 				<div class="col-11 csol-sm-11 col-md-5 col-lg-3 col-xl-3">
-					<a href="/trabalheconosco/candidato/listagem">
+					<a href="/trabalheconosco/candidato/pesquisa/avancada">
 						<div class="card text-center card-pantone561c" id="usuario">
 							<br/>
 							<i class="fas fa-file fa-5x"></i>

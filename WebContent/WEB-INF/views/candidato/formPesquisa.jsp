@@ -8,6 +8,12 @@
 	<h2>Cadastro de Currículo</h2>
 </section>
 <section class="container">
+
+	<a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
+	<a href="/trabalheconosco/candidato/listagem" class="btn btn-sm btn-secondary">Pesquisar todos</a>
+	<a href="/trabalheconosco/candidato/enviarEmail" class="btn btn-sm btn-light">Enviar e-mail atualização</a>
+
+
 	<form class="form" action="/trabalheconosco/candidato/pesquisa/avancada/filtrar" method="post">
 		<h3>Formulário de Pesquisa</h3>
 		<div class="card">
@@ -49,7 +55,6 @@
 						<input type="text" class="form-control" id="textoPesquisa" name="textoPesquisa" />
 					</div>
 				</div>
-				<a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
 				<input type="submit" value="Pesquisar" class="btn btn-sm btn-info" />
 			</div>
 		</div>

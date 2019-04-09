@@ -1,9 +1,9 @@
 package br.coop.unimedriopardo.trabalheconosco.servicos;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -445,9 +445,8 @@ public class CandidatoServiceImpl implements CandidatoService {
 		File file = null;
 		try {
 			file =  geradorDeImpressao.gerarImpressao(candidato);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (JRException e) {
+		} catch (JRException | URISyntaxException | IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return file;
