@@ -462,10 +462,19 @@ public class CandidatoServiceImpl implements CandidatoService {
 		try {
 			file =  geradorDeImpressao.gerarImpressao(candidato);
 		} catch (JRException | URISyntaxException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return file;
+	}
+
+	@Override
+	public Page<Candidato> listarPaginacao(Pageable pageable) {
+		return repositorioCandidato.findAll(pageable);
+	}
+
+	@Override
+	public Page<Candidato> listarPaginacaoComPesquisa(String textoPesquisa, Pageable pageable) {
+		return repositorioCandidato.findByNomeContaining(textoPesquisa, pageable);
 	}
 
 }

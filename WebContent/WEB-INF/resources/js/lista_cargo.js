@@ -1,51 +1,41 @@
 var totalPaginas;
 var totalElementos;
 var numero = 0;
-var textoPesquisa = $("#pesquisa").val();
 
 $(document).ready(function(){
-	pesquisarPagina(numero, textoPesquisa);
+	pesquisarPagina(numero);
 });
 
-
-$('#pesquisa').keypress(function() {
-	var valorPesquisa = $("#pesquisa").val();
-	pesquisarPagina(numero, valorPesquisa);
-});
-
-
-function pesquisarPagina(numeroPagina, textoPesquisa) {
+function pesquisarPagina(numeroPagina) {
 	$.ajax({
-		url : '/trabalheconosco/candidato/pesquisa',
+		url : '/trabalheconosco/cargo/pesquisa',
 		type : 'get',
-		data: {page : numeroPagina, textoPesquisa:textoPesquisa},
+		data: {page : numeroPagina},
 		beforeSend : function(){}
 	})
 	.done(function(response){
-		var listaCandidato = response["content"];
+		var listaCargo = response["content"];
 		totalPaginas = response["totalPages"];
 		totalElementos = response["totalElements"];
 		numero = response["number"];
-		montarTabela(listaCandidato);
+		montarTabela(listaCargo);
 		montarPaginacao(totalPaginas, numero);
 	})
 	.fail(function(jqXHR, textStatus, msg){});
 }
 
-function montarTabela(listaCandidato) {
-	$('#tabelaCandidato > tbody > tr').remove();
-	for (var i = 0; i < listaCandidato.length; i++) {
+function montarTabela(listaCargo) {
+	$('#tabelaCargo > tbody > tr').remove();
+	for (var i = 0; i < listaCargo.length; i++) {
 		var row = "<tr>";
-		    row += "<td>"+ listaCandidato[i]["nome"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["estadoCivil"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["sexo"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["numeroPis"] +"</td>";
-		    row += "<td>"+ '<a href="/trabalheconosco/candidato/visualizar/informacoes/'+listaCandidato[i]["id"]+'" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>' +"</td>";
+		    row += "<td>"+ listaCargo[i]["id"] +"</td>";
+		    row += "<td>"+ listaCargo[i]["nome"] +"</td>";
+		    row += "<td>"+ '<a href="/trabalheconosco/cargo/editar/'+listaCargo[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
+		    row += "<td>"+ '<a href="/trabalheconosco/cargo/deletar/'+listaCargo[i]["id"]+'" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>' +"</td>";
 			row += "</tr>";
-		$('#tabelaCandidato').append(row);
+		$('#tabelaCargo').append(row);
 	}
 }
-
 
 function montarPaginacao(totalPaginas, numero) {
 	$('#paginacao > li ').remove();

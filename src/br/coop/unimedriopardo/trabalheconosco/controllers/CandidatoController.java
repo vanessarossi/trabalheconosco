@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.security.Principal;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
@@ -34,9 +38,33 @@ public class CandidatoController {
 	}
 	
 	@RequestMapping("/listagem")
-	public String listagemCurriculos(Model model) {
-		model.addAttribute("candidatos",candidatoService.pesquisarTodos());
+	public String listagemCurriculos() {
 		return "candidato.listagem.tiles";
+	}
+	
+	@GetMapping("/pesquisa")
+	public @ResponseBody Page<Candidato> pesquisaPaginacao(
+			@RequestParam(
+            		value = "textoPesquisa",
+                    required = false,
+                    defaultValue = "") String textoPesquisa,
+            @RequestParam(
+            		value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "10") int size) {
+		PageRequest pageRequest = new PageRequest(page, size, Sort.DEFAULT_DIRECTION,"nome");
+		Page<Candidato> candidatos = null;
+		
+		if (textoPesquisa != "") {
+			candidatos = candidatoService.listarPaginacaoComPesquisa(textoPesquisa, pageRequest);
+		}else {
+			candidatos = candidatoService.listarPaginacao(pageRequest);
+		}
+		return candidatos;
 	}
 	
 	
@@ -45,7 +73,6 @@ public class CandidatoController {
 		candidatoService.enviarMsgEmail();
 		return "home.tiles";
 	}
-	
 	
 	@GetMapping("/imprimir/{id}")
 	public void enviarEmail (HttpServletResponse response,@PathVariable(value="id") Long id) {

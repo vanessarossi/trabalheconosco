@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section class="text-center">
 	<h2>Lista de Currículos Cadastrados</h2>
 </section>
@@ -11,49 +12,32 @@
 <a href="/trabalheconosco/candidato/enviarEmail" class="btn btn-sm btn-light">Enviar e-mail atualização</a>
 	<br/>
 	<br/>
+	<div class="form-group row">
+		<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+			<label for="pesquisa">Pesquisa</label>
+			<input type="text" class="form-control" id="pesquisa" name="pesquisa"/>
+		</div>
+	</div>
+	<br>
 	<div class="table-responsive">
-		<table class="table table-sm table-striped table-hover" id="candidatos">
+		<table class="table table-sm table-striped table-hover" id="tabelaCandidato">
 			<thead>
 				<tr>
 					<th>Nome</th>
 					<th>Estado Civil</th>
-					<th>Cidade</th>
-					<th>Escolaridade</th>
+					<th>Sexo</th>
+					<th>Número Pis</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${candidatos}" var="candidato">
-					<tr>
-						<td>${candidato.nome}</td>
-						<td>${candidato.estadoCivil}</td>
-						<td>${candidato.endereco.cidade.nome}</td>
-						<td>${candidato.escolaridade.nome}</td>
-						<td>
-							<a href="/trabalheconosco/candidato/visualizar/informacoes/${candidato.id}" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
-						</td>
-					</tr>
-				</c:forEach>
 			</tbody>
 		</table>
 	</div>
+	<nav>
+		<ul class="pagination justify-content-end" id="paginacao"></ul>
+	</nav>
 </section>
-<script>
-	$(document).ready(function() {
-	    $('#candidatos').DataTable({
-	    	"oLanguage": {
-	    		"sUrl": "/trabalheconosco/resources/js/util/pt-BR.json"
-	    	},
-	    	"bAutoWidth":true,
-	        "bLengthChange": false,
-	        "bPaginate": true,
-	        "bFilter": true,
-	        "bSort": false,
-	        "bInfo": true,
-	        "processing": true,
-	        "bJQueryUI": false,
-	        "sPaginationType": "full_numbers",
-	        "iDisplayLength":  10,
-	    });
-	} );
-</script>
+<spring:url value="/resources/js/lista_candidato.js" var="listaCandidatoJS"></spring:url>
+<script type="text/javascript" src="${listaCandidatoJS}"></script>
+

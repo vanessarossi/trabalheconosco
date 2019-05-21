@@ -58,7 +58,12 @@
 		<div>
 			<input type="hidden" class="form-control" id="id" name="id" value="${vaga.id}"/>
 			<a href="/trabalheconosco/vaga/lista/aberta" class="btn btn-danger">Cancelar</a>
-			<!-- <input type="submit" value="Candidatar-me à vaga" class="btn btn-success"/>-->
+		 	<c:if test="${vagaxcandidato == null}">
+		 		<a href="/trabalheconosco/vaga/candidatar/${vaga.id}" class="btn btn-success">Candidatar-me à vaga</a>		 	
+			</c:if>
+			<c:if test="${vagaxcandidato != null}">
+		 		<a href="/trabalheconosco/vaga/descandidatar/${vagaxcandidato.id}" class="btn btn-warning">Cancelar interesse à vaga</a>		 	
+			</c:if>
 		</div>
 	</form>
 </section>

@@ -4,20 +4,22 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section class="text-center">
-	<h2>Lista de Vagas Abertas</h2>
+	<h2>Lista Candidaturas</h2>
 </section>
 <section id="conteudo">
 <a href="/trabalheconosco/home" class="btn btn-sm btn-danger">Cancelar</a>
+<a href="/trabalheconosco/vaga/listagem" class="btn btn-sm btn-primary">Listagem de Vagas</a>
 	<br/>
 	<br/>
+	<section class="text-center">
+		<h4>Vaga : ${vaga.cargo.nome} - ${vaga.postoAtendimento.nome }</h4>
+	</section>
+	<input type="hidden" name="vagaId" id="vagaId" value="${vaga.id}"/>
 	<div class="table-responsive">
-		<table class="table table-sm table-striped table-hover" id="tabelaVagaAberta">
+		<table class="table table-sm table-striped table-hover" id="tabelaCandidatura">
 			<thead>
 				<tr>
-					<th>Cargo</th>
-					<th>Posto de Atendimento</th>
-					<th>Cidade</th>
-					<th>Quantidade</th>
+					<th>Nome</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -29,5 +31,5 @@
 		<ul class="pagination justify-content-end" id="paginacao"></ul>
 	</nav>
 </section>
-<spring:url value="/resources/js/lista_vaga_aberta.js" var="listaVagaAbertaJS"></spring:url>
-<script type="text/javascript" src="${listaVagaAbertaJS}"></script>
+<spring:url value="/resources/js/lista_candidato_vaga.js" var="listaCandidatosVagaJS"></spring:url>
+<script type="text/javascript" src="${listaCandidatosVagaJS}"></script>

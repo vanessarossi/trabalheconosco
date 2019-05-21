@@ -1,48 +1,40 @@
 var totalPaginas;
 var totalElementos;
 var numero = 0;
-var textoPesquisa = $("#pesquisa").val();
 
 $(document).ready(function(){
-	pesquisarPagina(numero, textoPesquisa);
+	pesquisarPagina(numero);
 });
 
-
-$('#pesquisa').keypress(function() {
-	var valorPesquisa = $("#pesquisa").val();
-	pesquisarPagina(numero, valorPesquisa);
-});
-
-
-function pesquisarPagina(numeroPagina, textoPesquisa) {
+function pesquisarPagina(numeroPagina) {
 	$.ajax({
-		url : '/trabalheconosco/candidato/pesquisa',
+		url : '/trabalheconosco/vaga/pesquisa/aberta',
 		type : 'get',
-		data: {page : numeroPagina, textoPesquisa:textoPesquisa},
+		data: {page : numeroPagina},
 		beforeSend : function(){}
 	})
 	.done(function(response){
-		var listaCandidato = response["content"];
+		var listaVagaAberta = response["content"];
 		totalPaginas = response["totalPages"];
 		totalElementos = response["totalElements"];
 		numero = response["number"];
-		montarTabela(listaCandidato);
+		montarTabela(listaVagaAberta);
 		montarPaginacao(totalPaginas, numero);
 	})
 	.fail(function(jqXHR, textStatus, msg){});
 }
 
-function montarTabela(listaCandidato) {
-	$('#tabelaCandidato > tbody > tr').remove();
-	for (var i = 0; i < listaCandidato.length; i++) {
+function montarTabela(listaVagaAberta) {
+	$('#tabelaVagaAberta > tbody > tr').remove();
+	for (var i = 0; i < listaVagaAberta.length; i++) {
 		var row = "<tr>";
-		    row += "<td>"+ listaCandidato[i]["nome"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["estadoCivil"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["sexo"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["numeroPis"] +"</td>";
-		    row += "<td>"+ '<a href="/trabalheconosco/candidato/visualizar/informacoes/'+listaCandidato[i]["id"]+'" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>' +"</td>";
+		    row += "<td>"+ listaVagaAberta[i]["cargo"]["nome"] +"</td>";
+		    row += "<td>"+ listaVagaAberta[i]["postoAtendimento"]["nome"] +"</td>";
+		    row += "<td>"+ listaVagaAberta[i]["postoAtendimento"]["cidade"]["nome"] +"</td>";
+		    row += "<td>"+ listaVagaAberta[i]["quantidade"] +"</td>";
+		    row += "<td>"+ '<a href="/trabalheconosco/vaga/info/'+listaVagaAberta[i]["id"]+'" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>' +"</td>";
 			row += "</tr>";
-		$('#tabelaCandidato').append(row);
+		$('#tabelaVagaAberta').append(row);
 	}
 }
 

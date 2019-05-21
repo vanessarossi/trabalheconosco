@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="posto_atendimento")
 public class PostoAtendimento {
@@ -30,6 +32,7 @@ public class PostoAtendimento {
 	@JoinColumn(name = "cidade_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_cidade_posto_atendimento"))
 	private Cidade cidade;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="postoAtendimento")
 	private List<Vaga> vagas;
 

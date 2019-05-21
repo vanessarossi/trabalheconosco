@@ -21,6 +21,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "candidato")
 public class Candidato {
@@ -95,46 +97,57 @@ public class Candidato {
 	@Column(name = "data_ultima_atualizacao")
 	private Date dataUltimaAtualizacao;
 
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_endereco_candidato"))
 	private Endereco endereco;
 
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "contato_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_contato_candidato"))
 	private Contato contato;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "escolaridade_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_escolaridade_candidato"))
 	private Escolaridade escolaridade;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "opcao_um_cargo_id", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "Fk_candidato_opcao_um"))
 	private Cargo opcaoUm;
-		
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "opcao_dois_cargo_id", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "Fk_candidato_opcao_dois"))
 	private Cargo opcaoDois;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "opcao_tres_cargo_id", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "Fk_candidato_opcao_tres"))
 	private Cargo opcaoTres;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_usuario_usuario"))
 	private Usuario usuario;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidato")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<FormacaoAcademica> formacoesAcademicas;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidato")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Curso> cursos;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidato")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ExperienciaProfissional> experienciasProfissionais;
 		
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidato")
 	private List<VagaxCandidato> vagasxcandidato;
 
@@ -268,8 +281,9 @@ public class Candidato {
 		return qtdFilho;
 	}
 	
+	@JsonIgnore
 	public String getQtdFilhoString() {
-		if(filho == null ) {
+		if(qtdFilho == null ) {
 			return "0";
 		}
 		return qtdFilho.toString();

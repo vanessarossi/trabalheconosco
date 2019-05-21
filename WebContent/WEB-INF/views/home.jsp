@@ -6,6 +6,7 @@
 <sec:authorize access="isAuthenticated()">
 <sec:authentication property="principal" var="principal"/>
 	<section class="text-center">
+		<p class="lead">Versão: 2.0</p>
 		<p class="lead">Bem vindo, 
 						<c:if test="${candidatoLogado.nome != null}">${candidatoLogado.nome}</c:if> 
 						<c:if test="${candidatoLogado.nome == null}">${principal.username}</c:if> !</p>

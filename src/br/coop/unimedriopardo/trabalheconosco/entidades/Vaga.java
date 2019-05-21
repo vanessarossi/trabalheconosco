@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="vaga")
 public class Vaga {
@@ -79,6 +81,7 @@ public class Vaga {
 	@JoinColumn(name = "posto_atendimento_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "Fk_posto_atendimento_vaga"))
 	private PostoAtendimento postoAtendimento;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="vaga")
 	private List<VagaxCandidato> vagasxcandidato;
 

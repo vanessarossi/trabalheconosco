@@ -1,51 +1,45 @@
 var totalPaginas;
 var totalElementos;
 var numero = 0;
-var textoPesquisa = $("#pesquisa").val();
 
 $(document).ready(function(){
-	pesquisarPagina(numero, textoPesquisa);
+	pesquisarPagina(numero);
 });
 
-
-$('#pesquisa').keypress(function() {
-	var valorPesquisa = $("#pesquisa").val();
-	pesquisarPagina(numero, valorPesquisa);
-});
-
-
-function pesquisarPagina(numeroPagina, textoPesquisa) {
+function pesquisarPagina(numeroPagina) {
 	$.ajax({
-		url : '/trabalheconosco/candidato/pesquisa',
+		url : '/trabalheconosco/vaga/pesquisa',
 		type : 'get',
-		data: {page : numeroPagina, textoPesquisa:textoPesquisa},
+		data: {page : numeroPagina},
 		beforeSend : function(){}
 	})
 	.done(function(response){
-		var listaCandidato = response["content"];
+		var listaVaga = response["content"];
 		totalPaginas = response["totalPages"];
 		totalElementos = response["totalElements"];
 		numero = response["number"];
-		montarTabela(listaCandidato);
+		montarTabela(listaVaga);
 		montarPaginacao(totalPaginas, numero);
 	})
 	.fail(function(jqXHR, textStatus, msg){});
 }
 
-function montarTabela(listaCandidato) {
-	$('#tabelaCandidato > tbody > tr').remove();
-	for (var i = 0; i < listaCandidato.length; i++) {
+function montarTabela(listaVaga) {
+	$('#tabelaVaga > tbody > tr').remove();
+	for (var i = 0; i < listaVaga.length; i++) {
+		var ativo = listaVaga[i]["ativo"] === true ? 'Sim' : 'Não';
+
 		var row = "<tr>";
-		    row += "<td>"+ listaCandidato[i]["nome"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["estadoCivil"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["sexo"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["numeroPis"] +"</td>";
-		    row += "<td>"+ '<a href="/trabalheconosco/candidato/visualizar/informacoes/'+listaCandidato[i]["id"]+'" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>' +"</td>";
+		    row += "<td>"+ listaVaga[i]["id"] +"</td>";
+		    row += "<td>"+ listaVaga[i]["cargo"]["nome"] +"</td>";
+		    row += "<td>"+ ativo +"</td>";
+		    row += "<td>"+ retornaData(listaVaga[i]["dataInicial"]) +"</td>";
+		    row += "<td>"+ retornaData(listaVaga[i]["dataFinal"]) +"</td>";
+		    row += "<td>"+ '<a href="/trabalheconosco/vaga/editar/'+listaVaga[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
 			row += "</tr>";
-		$('#tabelaCandidato').append(row);
+		$('#tabelaVaga').append(row);
 	}
 }
-
 
 function montarPaginacao(totalPaginas, numero) {
 	$('#paginacao > li ').remove();
@@ -87,4 +81,13 @@ function montarPaginacao(totalPaginas, numero) {
 	}
 	var liFinal = "<li class='page-item'><a class='page-link' href='#' onclick='pesquisarPagina("+(parseInt(totalPaginas) -1)+")'>Último</a></li>";
 	$("#paginacao").append(liFinal);
+}
+
+function retornaData(data) {
+	var dia = data.substring(8,10);
+	var mes = data.substring(5,7);
+	var ano = data.substring(0,4);
+	var dataConvertida = dia + '/' + mes + '/' + ano;
+
+	return dataConvertida;
 }

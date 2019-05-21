@@ -2,6 +2,8 @@ package br.coop.unimedriopardo.trabalheconosco.repositorios;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -13,6 +15,8 @@ public interface RepositorioCandidato extends JpaRepository<Candidato,Long>, Pag
 	public Candidato findByUsuario_Id(Long id);
 	public Candidato findByUsuario_Login(String cpf);
 	public Candidato findByCpf(String cpf);
+	
+	public Page<Candidato> findByNomeContaining(String textoPesquisa, Pageable pageable);
 	
 	
 	@Query(nativeQuery = true, value = "call pesquisarComFiltroCargo(:cargoId);")

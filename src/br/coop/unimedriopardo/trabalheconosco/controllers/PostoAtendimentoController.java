@@ -2,12 +2,16 @@ package br.coop.unimedriopardo.trabalheconosco.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Cidade;
 import br.coop.unimedriopardo.trabalheconosco.entidades.PostoAtendimento;
@@ -26,11 +30,24 @@ public class PostoAtendimentoController {
 	}
 
 	@GetMapping("/listagem")
-	public String index(Model model) {
-		List<PostoAtendimento> postosAtendimento = postoAtendimentoService.listar();
-		model.addAttribute("postosAtendimento", postosAtendimento);
+	public String index() {
 		return "postoAtendimento.index.tiles";
 	}
+	
+	@GetMapping("/pesquisa")
+	public @ResponseBody Page<PostoAtendimento> pesquisaPaginacao(
+            @RequestParam(
+            		value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "10") int size) {
+		PageRequest pageRequest = new PageRequest(page, size, Sort.DEFAULT_DIRECTION,"nome");
+		return postoAtendimentoService.listar(pageRequest);
+	}
+	
 	
 	@GetMapping("/formulario")
 	public String formulario(Model model) {
