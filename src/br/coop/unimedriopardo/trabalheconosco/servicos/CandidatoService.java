@@ -35,6 +35,7 @@ public interface CandidatoService {
 	public List<Cargo> pesquisarCargos();
 	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa, Long cargoId);
 	public void enviarMsgEmail();
+	public void enviarMsgEmailVaga();
 	public File imprimirCurriculo(Candidato candidato);
 	public Page<Candidato> listarPaginacao(Pageable pageable);
 	public Page<Candidato> listarPaginacaoComPesquisa(String textoPesquisa, Pageable pageable);

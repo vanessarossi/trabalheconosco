@@ -57,13 +57,13 @@ public class CargoController {
 	
 	@GetMapping("/editar/{id}")
 	public String editar(Model model, @PathVariable Long id) {
-		model.addAttribute("cargo", repositorioCargo.findOne(id));
+		model.addAttribute("cargo", repositorioCargo.findById(id));
 		return  "cargo.form.tiles";
 	}
 	
 	@GetMapping("/deletar/{id}")
 	public String deletar(@PathVariable Long id) {
-		repositorioCargo.delete(id);
+		repositorioCargo.deleteById(id);
 		return "redirect:/cargo/listagem";
 	}
 }

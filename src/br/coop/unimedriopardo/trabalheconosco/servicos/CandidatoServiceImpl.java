@@ -50,6 +50,7 @@ import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioExperienci
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioFormacaoAcademica;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioNivelFormacao;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioUsuario;
+import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioVaga;
 import br.coop.unimedriopardo.trabalheconosco.util.CandidatoView;
 import br.coop.unimedriopardo.trabalheconosco.util.GeradorDeImpressao;
 import net.sf.jasperreports.engine.JRException;
@@ -76,7 +77,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 			RepositorioContato repositorioContato, RepositorioEndereco repositorioEndereco,
 			RepositorioUsuario repositorioUsuario, RepositorioExperienciaProfisional repositorioExperienciaProfisional,
 			RepositorioFormacaoAcademica repositorioFormacaoAcademica, RepositorioCurso repositorioCurso,
-			RepositorioCargo repositorioCargo) {
+			RepositorioCargo repositorioCargo, RepositorioVaga repositorioVaga) {
 		super();
 		this.repositorioCandidato = repositorioCandidato;
 		this.repositorioNivelFormacao = repositorioNivelFormacao;
@@ -207,7 +208,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 
 	@Override
 	public Candidato pesquisarCandidatoPorId(Long id) {
-		return repositorioCandidato.findOne(id);
+		return repositorioCandidato.findById(id).orElse(new Candidato());
 	}
 
 	@Override
@@ -222,17 +223,17 @@ public class CandidatoServiceImpl implements CandidatoService {
 
 	@Override
 	public void deletarFormacaoAcademica(Long id) {
-		repositorioFormacaoAcademica.delete(id);
+		repositorioFormacaoAcademica.deleteById(id);
 	}
 
 	@Override
 	public void deletarExperienciaProfissional(Long id) {
-		repositorioExperienciaProfissional.delete(id);
+		repositorioExperienciaProfissional.deleteById(id);
 	}
 
 	@Override
 	public void deletarCurso(Long id) {
-		repositorioCurso.delete(id);
+		repositorioCurso.deleteById(id);
 	}
 
 	@Override
@@ -475,6 +476,51 @@ public class CandidatoServiceImpl implements CandidatoService {
 	@Override
 	public Page<Candidato> listarPaginacaoComPesquisa(String textoPesquisa, Pageable pageable) {
 		return repositorioCandidato.findByNomeContaining(textoPesquisa, pageable);
+	}
+
+	@Override
+	public void enviarMsgEmailVaga() {
+		Properties props = new Properties();
+        /** Parâmetros de conexão com servidor Gmail */
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                         protected PasswordAuthentication getPasswordAuthentication() 
+                         {
+                               return new PasswordAuthentication("unimed250@gmail.com", "uni250rp");
+                         }
+                    });
+
+        /** Ativa Debug para sessão */
+        session.setDebug(true);
+        try {     	
+        	List<Candidato> candidatos = repositorioCandidato.findAll();
+        	
+        	for (Candidato candidato : candidatos) {
+        		 Message message = new MimeMessage(session);
+                 message.setFrom(new InternetAddress("unimed250@gmail.com")); //Remetente
+
+                 Address[] toUser = InternetAddress.parse(candidato.getContato().getEmail()); //destinatario
+
+                 message.setRecipients(Message.RecipientType.TO, toUser);
+                 message.setSubject("Informativo - Trabalhe Conosco Unimed Rio Pardo");//Assunto
+                  
+                 String body= "Ola " + candidato.getNome()+", \n"+
+                         " Mantenha seu cadastro sempre atualizado ! \n"+
+                         " Qualquer duvida entre em contato com o departamento de TI. \n Telefone (19) 3682-8888";            
+                 message.setText(body);
+                 /**Método para enviar a mensagem criada*/
+                 Transport.send(message);
+			}
+           
+         } catch (MessagingException e) {
+              throw new RuntimeException(e);
+        }
 	}
 
 }

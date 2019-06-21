@@ -72,6 +72,8 @@ public class GeradorDeImpressao {
 		map.put("primeiraOpcao",candidato.getOpcaoUm() == null ? "" : candidato.getOpcaoUm().getNome());
 		map.put("segundaOpcao",candidato.getOpcaoDois() == null ? "" : candidato.getOpcaoDois().getNome());
 		map.put("terceiraOpcao",candidato.getOpcaoTres() == null ? "" : candidato.getOpcaoTres().getNome());
+		
+		map.put("cursos", new JRBeanCollectionDataSource(candidato.getCursos()));
 				
 		return map;
 	}

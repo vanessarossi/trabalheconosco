@@ -40,7 +40,7 @@ public class PostoAtendimentoServiceImpl implements PostoAtendimentoService {
 
 	@Override
 	public PostoAtendimento pesquisarPorId(Long id) {
-		return repositorioPostoAtendimento.findOne(id);
+		return repositorioPostoAtendimento.findById(id).orElse(new PostoAtendimento());
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class PostoAtendimentoServiceImpl implements PostoAtendimentoService {
 
 	@Override
 	public void deletar(Long id) {
-		repositorioPostoAtendimento.delete(id);
+		repositorioPostoAtendimento.deleteById(id);
 		
 	}
 

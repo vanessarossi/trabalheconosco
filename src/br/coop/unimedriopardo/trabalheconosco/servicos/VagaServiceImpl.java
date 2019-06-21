@@ -70,12 +70,12 @@ public class VagaServiceImpl implements VagaService{
 
 	@Override
 	public Vaga pesquisarPorId(Long id) {
-		return repositorioVaga.findOne(id);
+		return repositorioVaga.findById(id).orElse(new Vaga());
 	}
 
 	@Override
 	public void deletar(Long id) {
-		repositorioVaga.delete(id);
+		repositorioVaga.deleteById(id);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class VagaServiceImpl implements VagaService{
 
 	@Override
 	public void deletarCandidatura(Long id) {
-		repositorioVagaxCandidato.delete(id);
+		repositorioVagaxCandidato.deleteById(id);
 	}
 
 	@Override
