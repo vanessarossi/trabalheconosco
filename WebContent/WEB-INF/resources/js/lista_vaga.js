@@ -33,8 +33,8 @@ function montarTabela(listaVaga) {
 		    row += "<td>"+ listaVaga[i]["id"] +"</td>";
 		    row += "<td>"+ listaVaga[i]["cargo"]["nome"] +"</td>";
 		    row += "<td>"+ ativo +"</td>";
-		    row += "<td>"+ retornaData(listaVaga[i]["dataInicial"]) +"</td>";
-		    row += "<td>"+ retornaData(listaVaga[i]["dataFinal"]) +"</td>";
+		    row += "<td>"+ listaVaga[i]["dataInicial"] +"</td>";
+		    row += "<td>"+ listaVaga[i]["dataFinal"] +"</td>";
 		    row += "<td>"+ '<a href="/trabalheconosco/vaga/editar/'+listaVaga[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
 			row += "</tr>";
 		$('#tabelaVaga').append(row);
@@ -81,13 +81,4 @@ function montarPaginacao(totalPaginas, numero) {
 	}
 	var liFinal = "<li class='page-item'><a class='page-link' href='#' onclick='pesquisarPagina("+(parseInt(totalPaginas) -1)+")'>Último</a></li>";
 	$("#paginacao").append(liFinal);
-}
-
-function retornaData(data) {
-	var dia = data.substring(8,10);
-	var mes = data.substring(5,7);
-	var ano = data.substring(0,4);
-	var dataConvertida = dia + '/' + mes + '/' + ano;
-
-	return dataConvertida;
 }

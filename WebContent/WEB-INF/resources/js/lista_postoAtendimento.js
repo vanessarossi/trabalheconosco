@@ -31,7 +31,7 @@ function montarTabela(listaPostoAtendimento) {
 		    row += "<td>"+ listaPostoAtendimento[i]["id"] +"</td>";
 		    row += "<td>"+ listaPostoAtendimento[i]["nome"] +"</td>";
 		    row += "<td>"+ listaPostoAtendimento[i]["cidade"]["nome"] +"</td>";
-		    row += "<td>"+ '<a href="/trabalheconosco/cargo/editar/'+listaPostoAtendimento[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
+		    row += "<td>"+ '<a href="/trabalheconosco/postoAtendimento/editar/'+listaPostoAtendimento[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
 			row += "</tr>";
 		$('#tabelaPostosAtendimento').append(row);
 	}

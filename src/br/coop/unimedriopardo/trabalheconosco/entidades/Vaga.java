@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -51,16 +52,19 @@ public class Vaga {
 	@Column(name="palavras_chave", length=200)
 	private String palavrasChave;
 	
+	@JsonFormat(pattern="dd/MM/YYYY")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
+	@JsonFormat(pattern="dd/MM/YYYY")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="data_inicial")
 	private Date dataInicial;
 	
+	@JsonFormat(pattern="dd/MM/YYYY")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="data_final")

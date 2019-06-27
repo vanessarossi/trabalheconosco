@@ -57,7 +57,7 @@ public class CargoController {
 	
 	@GetMapping("/editar/{id}")
 	public String editar(Model model, @PathVariable Long id) {
-		model.addAttribute("cargo", repositorioCargo.findById(id));
+		model.addAttribute("cargo", repositorioCargo.findById(id).orElse(new Cargo()));
 		return  "cargo.form.tiles";
 	}
 	
