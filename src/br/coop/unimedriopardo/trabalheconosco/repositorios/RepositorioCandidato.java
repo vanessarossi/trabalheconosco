@@ -30,7 +30,5 @@ public interface RepositorioCandidato extends JpaRepository<Candidato,Long>, Pag
 	
 	@Query(nativeQuery = true, value = "call pesquisarComFiltroCidadeTextoCargo(:cidadeId, :textoPesquisa, :cargoId);")
 	public List<Object[]> pesquisarComFiltroCidadeTextoCargo(@Param("cidadeId") Long cidade, @Param("textoPesquisa") String textoPesquisa, @Param("cargoId") Long cargoId);
-	
-	
 
 }

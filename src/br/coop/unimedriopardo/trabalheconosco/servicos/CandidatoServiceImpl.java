@@ -1,16 +1,15 @@
 package br.coop.unimedriopardo.trabalheconosco.servicos;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
-
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,7 +18,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,76 +28,35 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Candidato;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Cargo;
-import br.coop.unimedriopardo.trabalheconosco.entidades.Contato;
-import br.coop.unimedriopardo.trabalheconosco.entidades.Curso;
-import br.coop.unimedriopardo.trabalheconosco.entidades.Endereco;
-import br.coop.unimedriopardo.trabalheconosco.entidades.Escolaridade;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Estado;
-import br.coop.unimedriopardo.trabalheconosco.entidades.ExperienciaProfissional;
-import br.coop.unimedriopardo.trabalheconosco.entidades.FormacaoAcademica;
-import br.coop.unimedriopardo.trabalheconosco.entidades.NivelFormacao;
 import br.coop.unimedriopardo.trabalheconosco.entidades.Usuario;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioCandidato;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioCargo;
-import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioContato;
-import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioCurso;
-import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioEndereco;
-import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioEscolaridade;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioEstado;
-import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioExperienciaProfisional;
-import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioFormacaoAcademica;
-import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioNivelFormacao;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioUsuario;
 import br.coop.unimedriopardo.trabalheconosco.repositorios.RepositorioVaga;
 import br.coop.unimedriopardo.trabalheconosco.util.CandidatoView;
-import br.coop.unimedriopardo.trabalheconosco.util.GeradorDeImpressao;
-import net.sf.jasperreports.engine.JRException;
+
 
 @Service
 @Transactional
 public class CandidatoServiceImpl implements CandidatoService {
 	
-	 private final RepositorioEscolaridade repositorioEscolaridade;
-	 private final RepositorioNivelFormacao repositorioNivelFormacao;
+
 	 private final RepositorioEstado repositorioEstado;
 	 private final RepositorioCandidato repositorioCandidato;
-	 private final RepositorioContato repositorioContato;
-	 private final RepositorioEndereco repositorioEndereco;
 	 private final RepositorioUsuario repositorioUsuario;
-	 private final RepositorioExperienciaProfisional repositorioExperienciaProfissional;
-	 private final RepositorioFormacaoAcademica repositorioFormacaoAcademica;
-	 private final RepositorioCurso repositorioCurso;
+
 	 private final RepositorioCargo repositorioCargo;
 	
 	@Autowired
-	public CandidatoServiceImpl(RepositorioCandidato repositorioCandidato, RepositorioNivelFormacao repositorioNivelFormacao,
-			RepositorioEstado repositorioEstado, RepositorioEscolaridade repositorioEscolaridade, 
-			RepositorioContato repositorioContato, RepositorioEndereco repositorioEndereco,
-			RepositorioUsuario repositorioUsuario, RepositorioExperienciaProfisional repositorioExperienciaProfisional,
-			RepositorioFormacaoAcademica repositorioFormacaoAcademica, RepositorioCurso repositorioCurso,
-			RepositorioCargo repositorioCargo, RepositorioVaga repositorioVaga) {
+	public CandidatoServiceImpl(RepositorioCandidato repositorioCandidato,RepositorioEstado repositorioEstado, 
+			RepositorioUsuario repositorioUsuario, RepositorioCargo repositorioCargo, RepositorioVaga repositorioVaga) {
 		super();
 		this.repositorioCandidato = repositorioCandidato;
-		this.repositorioNivelFormacao = repositorioNivelFormacao;
 		this.repositorioEstado = repositorioEstado;
-		this.repositorioEscolaridade = repositorioEscolaridade;
-		this.repositorioContato = repositorioContato;
-		this.repositorioEndereco = repositorioEndereco;
 		this.repositorioUsuario = repositorioUsuario;
-		this.repositorioExperienciaProfissional = repositorioExperienciaProfisional;
-		this.repositorioFormacaoAcademica = repositorioFormacaoAcademica;
-		this.repositorioCurso = repositorioCurso;
 		this.repositorioCargo = repositorioCargo;
-	}
-
-	@Override
-	public List<Escolaridade> pesquisarEscolaridade() {
-		return repositorioEscolaridade.findAll(new Sort("id"));
-	}
-
-	@Override
-	public List<NivelFormacao> pesquisarNivelFormacao() {
-		return repositorioNivelFormacao.findAll(new Sort("id"));
 	}
 
 	@Override
@@ -109,15 +66,6 @@ public class CandidatoServiceImpl implements CandidatoService {
 
 	@Override
 	public void salvar(Candidato candidato, MultipartFile file) {	
-		List<FormacaoAcademica> formacoesAcademicas = candidato.getFormacoesAcademicas();
-		List<Curso> cursos = candidato.getCursos();
-		List<ExperienciaProfissional> experienciasProfissionais = candidato.getExperienciasProfissionais();
-		//salvar contato
-		Contato contato = candidato.getContato();
-		contato = repositorioContato.save(contato);
-		//salvar endereco
-		Endereco endereco = candidato.getEndereco();
-		endereco = repositorioEndereco.save(endereco);
 		//salvar usuario
 		Usuario usuario = new Usuario();
 		usuario.setId(candidato.getUsuario().getId());
@@ -128,77 +76,33 @@ public class CandidatoServiceImpl implements CandidatoService {
 		usuario.setAtivo(true);
 		usuario.setPerfilAcesso("ROLE_USER");
 		usuario = repositorioUsuario.save(usuario);
+		
 		//salvar candidato
 		Candidato novoCandidato = new Candidato();
 		novoCandidato.setId(candidato.getId());
 		novoCandidato.setCpf(candidato.getCpf());
 		novoCandidato.setNome(candidato.getNome());
-		novoCandidato.setEstadoCivil(candidato.getEstadoCivil());
-		novoCandidato.setDataNascimento(candidato.getDataNascimento());
-		novoCandidato.setNacionalidade(candidato.getNacionalidade());
-		novoCandidato.setSexo(candidato.getSexo());
-		novoCandidato.setNomeMae(candidato.getNomeMae());
-		novoCandidato.setNomePai(candidato.getNomePai());
-		novoCandidato.setNomeConjuge(candidato.getNomeConjuge());
-		novoCandidato.setFilho(candidato.getFilho());
-		novoCandidato.setQtdFilho(candidato.getQtdFilho());
-		novoCandidato.setIdadeFilho(candidato.getIdadeFilho());
-		novoCandidato.setPcd(candidato.getPcd());
-		novoCandidato.setDescricaoPcd(candidato.getDescricaoPcd());
-		novoCandidato.setNumeroPis(candidato.getNumeroPis());
-		novoCandidato.setLinkFacebook(candidato.getLinkFacebook());
-		novoCandidato.setEscolaridade(candidato.getEscolaridade());
-		novoCandidato.setEndereco(endereco);
-		novoCandidato.setContato(contato);
+		novoCandidato.setEmail(candidato.getEmail());
 		novoCandidato.setUsuario(usuario);
-		novoCandidato.setFoto(candidato.getFoto());
 		novoCandidato.setOpcaoUm(candidato.getOpcaoUm());
 		novoCandidato.setOpcaoDois(candidato.getOpcaoDois());
 		novoCandidato.setOpcaoTres(candidato.getOpcaoTres());
+	
 		
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		
 		novoCandidato.setDataCadastro(candidato.getDataCadastro().equals("") ? format.format(new Date()) : candidato.getDataCadastro());
 		novoCandidato.setDataUltimaAtualizacao(new Date());
 		novoCandidato = repositorioCandidato.save(novoCandidato);
-		//salvar experiencia profissional
-		if(experienciasProfissionais != null) {
-			for (ExperienciaProfissional experienciaProfissional : experienciasProfissionais) {
-				if(validarExperienciaProfissional(experienciaProfissional)) {
-					ExperienciaProfissional ep = experienciaProfissional;
-					ep.setCandidato(novoCandidato);
-					repositorioExperienciaProfissional.save(ep);
-				}
-			}
-		}
-		//salvar informacao academica
-		if(formacoesAcademicas != null) {
-			for (FormacaoAcademica formacaoAcademica : formacoesAcademicas) {
-				if(validarFormacaoAcademica(formacaoAcademica)) {
-					FormacaoAcademica fa = formacaoAcademica;
-					fa.setCandidato(novoCandidato);
-					repositorioFormacaoAcademica.save(fa);
-				}
-			}
-		}
-		//salvar cursos
-		if(cursos != null) {
-			for (Curso curso : cursos) {
-				if(validarCurso(curso)) {
-					Curso c = curso;
-					c.setCandidato(novoCandidato);
-					repositorioCurso.save(c);
-				}
-			}
-		}
-
+		
+		
+		//salvar curriculo
 		if (! file.isEmpty()) {
 			String nomeArquivo = novoCandidato.getId().toString();
-			String foto = uploadFoto(nomeArquivo, file);
-			novoCandidato.setFoto(foto);
+			String caminhoAnexo = uploadCurriculo(nomeArquivo, file);
+			novoCandidato.setCaminhoAnexo(caminhoAnexo);
 			repositorioCandidato.save(novoCandidato);
 		}
-		
 	}
 
 	@Override
@@ -222,47 +126,9 @@ public class CandidatoServiceImpl implements CandidatoService {
 	}
 
 	@Override
-	public void deletarFormacaoAcademica(Long id) {
-		repositorioFormacaoAcademica.deleteById(id);
-	}
-
-	@Override
-	public void deletarExperienciaProfissional(Long id) {
-		repositorioExperienciaProfissional.deleteById(id);
-	}
-
-	@Override
-	public void deletarCurso(Long id) {
-		repositorioCurso.deleteById(id);
-	}
-
-	@Override
 	public Page<Candidato> pesquisarTodos(Pageable pageable) {
 		Page<Candidato> candidatos = repositorioCandidato.findAll(pageable);
 		return candidatos;
-	}
-
-	@Override
-	public String uploadFoto(String nomeArquivo, MultipartFile file) {
-		 String caminho = System.getProperty("catalina.home") + "/webapps/fotos";
-		 File pasta;
-		   pasta = new File(caminho);
-		   if (!pasta.exists()){
-		       pasta.mkdir();
-		   }
-		  String caminhoArquivo = caminho + "/" + nomeArquivo +".jpg";
-		  File novoArquivo = new File(caminhoArquivo);
-		  FileOutputStream saida;
-	
-			try {
-				saida = new FileOutputStream(novoArquivo);
-				saida.write(file.getBytes(), 0, file.getBytes().length);
-				saida.close();	
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			 
-		return "/fotos/"+nomeArquivo +".jpg";
 	}
 
 	@Override
@@ -275,7 +141,6 @@ public class CandidatoServiceImpl implements CandidatoService {
 			repositorioUsuario.save(usuario);
 			enviarEmail(usuario, senha);
 		}
-	
 	}
 	
 	public String gerarSenhaAleatoria() {
@@ -317,7 +182,7 @@ public class CandidatoServiceImpl implements CandidatoService {
               message.setFrom(new InternetAddress("unimed250@gmail.com")); //Remetente
 
               Address[] toUser = InternetAddress //Destinatário(s)
-                         .parse(usuario.getCandidato().getContato().getEmail());  
+                         .parse(usuario.getCandidato().getEmail());  
 
               message.setRecipients(Message.RecipientType.TO, toUser);
               message.setSubject("Nova senha - Trabalhe Conosco Unimed Rio Pardo");//Assunto
@@ -337,61 +202,17 @@ public class CandidatoServiceImpl implements CandidatoService {
         }
 	}
 
-	public boolean validarFormacaoAcademica(FormacaoAcademica formacaoAcademica) {
-		boolean retorno = true;
-		if (formacaoAcademica.getInstituicao() == null || 
-			formacaoAcademica.getNivelFormacao().getId() == null||
-		    formacaoAcademica.getNomeCurso() == null ||
-		    formacaoAcademica.getDataInicio() == null) {
-			retorno = false;
-		}
-		
-		return retorno;
-	}
-	
-	public boolean validarCurso(Curso curso) {
-		boolean retorno = true;
-		if (curso.getInstituicao() == null || 
-				curso.getNome() == null||
-			    curso.getDataInicio() == null) {
-				retorno = false;
-		}
-		return retorno;
-	}
-	
-	public boolean validarExperienciaProfissional(ExperienciaProfissional experienciaProfissional) {
-		boolean retorno = true;
-		if (experienciaProfissional.getNomeEmpresa() == null || 
-			experienciaProfissional.getNomeCargo() == null||
-			experienciaProfissional.getDataInicio() == null) {
-				retorno = false;
-		}
-		return retorno;
-	}
-
 	@Override
 	public List<Candidato> pesquisarTodos() {
 		return repositorioCandidato.findAll();
 	}
 
 	@Override
-	public List<CandidatoView> listarComFiltro(Long cidadeId, String textoPesquisa, Long cargoId) {
-		
+	public List<CandidatoView> listarComFiltro(Long cargoId) {
 		List<Object[]> objetos = new ArrayList<Object[]>();
 		
-		//cidade  + cargo
-		if (cidadeId != null && cargoId != null && textoPesquisa.equals("")) {
-			objetos = repositorioCandidato.pesquisarComFiltroCargoCidade(cargoId, cidadeId);
-		//cidade 	
-		}if (cidadeId != null && cargoId == null && textoPesquisa.equals("")) {
-			objetos = repositorioCandidato.pesquisarComFiltroCidade(cidadeId);
-		//cargo	
-		}if (cidadeId == null && cargoId != null && textoPesquisa.equals("") ) {
+		if (cargoId != null ) {
 			objetos = repositorioCandidato.pesquisarComFiltroCargo(cargoId);
-		//pesquisa completa
-		}if (cidadeId != null && cargoId != null && (!textoPesquisa.equals(""))) {
-			String texto = '%'+textoPesquisa+'%';
-			objetos = repositorioCandidato.pesquisarComFiltroCidadeTextoCargo(cidadeId, texto, cargoId);
 		}
 
 		List<CandidatoView> candidatos = new ArrayList<CandidatoView>();
@@ -399,7 +220,6 @@ public class CandidatoServiceImpl implements CandidatoService {
 			CandidatoView candidatoView = new CandidatoView();
 			candidatoView.setId(objeto[0].toString());
 			candidatoView.setNome(objeto[1].toString());
-			candidatoView.setEstadoCivil(objeto[2].toString());
 			candidatos.add(candidatoView);		
 		} 
 		return candidatos;
@@ -438,7 +258,7 @@ public class CandidatoServiceImpl implements CandidatoService {
         		 Message message = new MimeMessage(session);
                  message.setFrom(new InternetAddress("unimed250@gmail.com")); //Remetente
 
-                 Address[] toUser = InternetAddress.parse(candidato.getContato().getEmail()); //destinatario
+                 Address[] toUser = InternetAddress.parse(candidato.getEmail()); //destinatario
 
                  message.setRecipients(Message.RecipientType.TO, toUser);
                  message.setSubject("Informativo - Trabalhe Conosco Unimed Rio Pardo");//Assunto
@@ -456,17 +276,6 @@ public class CandidatoServiceImpl implements CandidatoService {
         }
 	}
 
-	@Override
-	public File imprimirCurriculo(Candidato candidato) {
-		GeradorDeImpressao geradorDeImpressao = new GeradorDeImpressao();
-		File file = null;
-		try {
-			file =  geradorDeImpressao.gerarImpressao(candidato);
-		} catch (JRException | URISyntaxException | IOException e) {
-			e.printStackTrace();
-		}
-		return file;
-	}
 
 	@Override
 	public Page<Candidato> listarPaginacao(Pageable pageable) {
@@ -505,7 +314,7 @@ public class CandidatoServiceImpl implements CandidatoService {
         		 Message message = new MimeMessage(session);
                  message.setFrom(new InternetAddress("unimed250@gmail.com")); //Remetente
 
-                 Address[] toUser = InternetAddress.parse(candidato.getContato().getEmail()); //destinatario
+                 Address[] toUser = InternetAddress.parse(candidato.getEmail()); //destinatario
 
                  message.setRecipients(Message.RecipientType.TO, toUser);
                  message.setSubject("Informativo - Trabalhe Conosco Unimed Rio Pardo");//Assunto
@@ -521,6 +330,36 @@ public class CandidatoServiceImpl implements CandidatoService {
          } catch (MessagingException e) {
               throw new RuntimeException(e);
         }
+	}
+
+	@Override
+	public String uploadCurriculo(String nomeArquivo, MultipartFile file) {
+		 String caminho = System.getProperty("catalina.home") + "/webapps/curriculo";
+		 File pasta;
+		   pasta = new File(caminho);
+		   if (!pasta.exists()){
+		       pasta.mkdir();
+		   }
+		  String caminhoArquivo = caminho + "/" + nomeArquivo +".pdf";
+		  File novoArquivo = new File(caminhoArquivo);
+		  FileOutputStream saida;
+	
+			try {
+				saida = new FileOutputStream(novoArquivo);
+				saida.write(file.getBytes(), 0, file.getBytes().length);
+				saida.close();	
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			 
+		return "/curriculo/"+nomeArquivo +".pdf";
+	}
+
+	@Override
+	public File retornaPdf(Long id) {
+		String caminho = System.getProperty("catalina.home") + "/webapps/curriculo";
+	    File arquivo = new File(caminho+"/"+id+".pdf");
+		return arquivo;
 	}
 
 }

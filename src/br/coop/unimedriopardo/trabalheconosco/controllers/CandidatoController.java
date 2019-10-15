@@ -1,17 +1,27 @@
 package br.coop.unimedriopardo.trabalheconosco.controllers;
 
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.Principal;
+
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,37 +77,21 @@ public class CandidatoController {
 		return candidatos;
 	}
 	
-	
 	@RequestMapping("/enviarEmail")
 	public String enviarEmail() {
 		candidatoService.enviarMsgEmail();
 		return "home.tiles";
 	}
 	
-	@GetMapping("/imprimir/{id}")
-	public void enviarEmail (HttpServletResponse response,@PathVariable(value="id") Long id) {
-		File file = candidatoService.imprimirCurriculo(candidatoService.pesquisarCandidatoPorId(id));
-		InputStream inputStream = null;
-		 try {
-			 	inputStream = new FileInputStream(file);
-		      org.apache.commons.io.IOUtils.copy(inputStream, response.getOutputStream());
-		      response.flushBuffer();
-		    } catch (IOException ex) {
-		      throw new RuntimeException("IOError writing file to output stream");
-		    }
-	}
-	
 	@PostMapping("/pesquisa/avancada/filtrar")
 	public String listagemCurriculos(Model model, PesquisaCandidato pesquisaCandidato) {
-		model.addAttribute("candidatos",candidatoService.listarComFiltro(pesquisaCandidato.getCidadeId(), pesquisaCandidato.getTextoPesquisa(), pesquisaCandidato.getCargoId()));
+		model.addAttribute("candidatos",candidatoService.listarComFiltro(pesquisaCandidato.getCargoId()));
 		model.addAttribute("cargos", candidatoService.pesquisarCargos());
-		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		return "candidato.pesquisa.avancada.tiles";
 	}
 		
 	@RequestMapping("/pesquisa/avancada")
 	public String pesquisaAvancadao(Model model) {
-		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		model.addAttribute("cargos", candidatoService.pesquisarCargos());
 		return "candidato.pesquisa.avancada.tiles";
 	}
@@ -116,8 +110,6 @@ public class CandidatoController {
 	
 	@RequestMapping("/editar")
 	public String editar(Model model, Principal principal) {
-		model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
-		model.addAttribute("niveisFormacao",candidatoService.pesquisarNivelFormacao());
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		model.addAttribute("candidato",candidatoService.pesquisarCandidatoPorLogin(principal.getName()));
 		model.addAttribute("cargos", candidatoService.pesquisarCargos());
@@ -126,8 +118,6 @@ public class CandidatoController {
 	
 	@GetMapping("/formulario")
 	public String formulario(Model model) {
-		model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
-		model.addAttribute("niveisFormacao",candidatoService.pesquisarNivelFormacao());
 		model.addAttribute("estados",candidatoService.pesquisarEstado());
 		model.addAttribute("cargos", candidatoService.pesquisarCargos());
 		return "candidato.form.tiles";
@@ -137,8 +127,6 @@ public class CandidatoController {
 	public String cadastrar(Model model, Candidato candidato) {
 		Candidato candidatoPesquisado = candidatoService.pesquisarCandidatoPorCpf(candidato.getCpf());	
 		if (candidatoPesquisado == null) {
-			model.addAttribute("escolaridades", candidatoService.pesquisarEscolaridade());
-			model.addAttribute("niveisFormacao",candidatoService.pesquisarNivelFormacao());
 			model.addAttribute("estados",candidatoService.pesquisarEstado());
 			model.addAttribute("cargos", candidatoService.pesquisarCargos());
 			model.addAttribute("candidato", candidato);
@@ -150,27 +138,35 @@ public class CandidatoController {
 	}
 		
 	@PostMapping("/salvar")
-	public String salvar(Candidato candidato, Model model, @RequestParam("imagem") MultipartFile file) {
+	public String salvar(Candidato candidato, Model model, @RequestParam("arquivo") MultipartFile file) {
 		candidatoService.salvar(candidato, file);
 		return "redirect:/candidato/meucurriculo";
 	}
 	
-	@GetMapping("/deletar/experienciaProfissional/{id}")
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void deletarExperienciaProfissional(@PathVariable("id") Long id){
-		candidatoService.deletarExperienciaProfissional(id);
-	}
+	@GetMapping("/imprimir/{id}")
+	public void imprimir (HttpServletResponse response,@PathVariable(value="id") Long id) {
+		try {
+			File file = candidatoService.retornaPdf(id);
+			response.setContentType("pdf");
+			response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode(file.getName(), "utf-8"));
+			
+			InputStream in = new FileInputStream(file);
+			ServletOutputStream out = response.getOutputStream();
 	
-	@GetMapping("/deletar/formacaoAcademica/{id}")
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void deletarFormacaoAcademica(@PathVariable("id") Long id){
-		candidatoService.deletarFormacaoAcademica(id);
-	}
-	
-	@GetMapping("/deletar/curso/{id}")
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void deletarCurso(@PathVariable("id") Long id){
-		candidatoService.deletarCurso(id);
+			byte[] buffer = new byte[(int)file.length()];
+			int nLidos;
+			
+			while((nLidos = in.read(buffer)) >= 0) {
+				out.write(buffer, 0, nLidos);
+			}
+			out.flush();
+			out.close();
+			in.close();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 }

@@ -38,10 +38,6 @@ public class Cidade {
 	@OneToMany(mappedBy="cidade")
 	private List<PostoAtendimento> postosAtendimento;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="cidade")
-	private List<Endereco> enderecos;
-
 	public Long getId() {
 		return id;
 	}
@@ -80,13 +76,5 @@ public class Cidade {
 
 	public void setPostosAtendimento(List<PostoAtendimento> postosAtendimento) {
 		this.postosAtendimento = postosAtendimento;
-	}
-
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
 	}
 }

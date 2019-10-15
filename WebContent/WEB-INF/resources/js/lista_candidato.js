@@ -35,12 +35,16 @@ function pesquisarPagina(numeroPagina, textoPesquisa) {
 function montarTabela(listaCandidato) {
 	$('#tabelaCandidato > tbody > tr').remove();
 	for (var i = 0; i < listaCandidato.length; i++) {
+
+		var btn = "";
+		if (listaCandidato[i]["caminhoAnexo"] != null && listaCandidato[i]["caminhoAnexo"] != '') {
+			btn = '<a href="/trabalheconosco/candidato/imprimir/'+listaCandidato[i]["id"]+'" class="btn btn-sm btn-secondary"><i class="fas fa-download"></i></a>' +"</td>";
+		}
+
 		var row = "<tr>";
 		    row += "<td>"+ listaCandidato[i]["nome"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["estadoCivil"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["sexo"] +"</td>";
-		    row += "<td>"+ listaCandidato[i]["numeroPis"] +"</td>";
 		    row += "<td>"+ '<a href="/trabalheconosco/candidato/visualizar/informacoes/'+listaCandidato[i]["id"]+'" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>' +"</td>";
+		    row += "<td>"+ btn;
 			row += "</tr>";
 		$('#tabelaCandidato').append(row);
 	}

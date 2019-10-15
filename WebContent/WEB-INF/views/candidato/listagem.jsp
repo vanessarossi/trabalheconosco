@@ -24,9 +24,7 @@
 			<thead>
 				<tr>
 					<th>Nome</th>
-					<th>Estado Civil</th>
-					<th>Sexo</th>
-					<th>Número Pis</th>
+					<th></th>
 					<th></th>
 				</tr>
 			</thead>
