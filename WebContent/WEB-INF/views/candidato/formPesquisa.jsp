@@ -51,7 +51,7 @@
 							<a href="/trabalheconosco/candidato/visualizar/informacoes/${candidato.id}" class="btn btn-sm btn-secondary"><i class="fas fa-search-plus"></i></a>
 						</td>
 						<td>
-							<a href="/trabalheconosco/candidato/imprimir/${candidato.id}" target="_blank" class="btn btn-sm btn-secondary"><i class="fas fa-download"></i></a>
+							<c:if test="${candidato.caminhoArquivo != '' }"><a href="/trabalheconosco/candidato/imprimir/${candidato.id}" target="_blank" class="btn btn-sm btn-secondary"><i class="fas fa-download"></i></a></c:if>
 						</td>
 					</tr>
 				</c:forEach>

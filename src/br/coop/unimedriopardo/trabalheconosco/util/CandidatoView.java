@@ -4,8 +4,7 @@ public class CandidatoView {
 	
 	private String id;
 	private String nome;
-	private String estadoCivil;
-	
+	private String caminhoArquivo;
 	public String getId() {
 		return id;
 	}
@@ -18,11 +17,11 @@ public class CandidatoView {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getEstadoCivil() {
-		return estadoCivil;
+	public String getCaminhoArquivo() {
+		return caminhoArquivo;
 	}
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
+	public void setCaminhoArquivo(String caminhoArquivo) {
+		this.caminhoArquivo = caminhoArquivo;
 	}
-
+	
 }

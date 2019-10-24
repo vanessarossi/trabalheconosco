@@ -220,6 +220,7 @@ public class CandidatoServiceImpl implements CandidatoService {
 			CandidatoView candidatoView = new CandidatoView();
 			candidatoView.setId(objeto[0].toString());
 			candidatoView.setNome(objeto[1].toString());
+			candidatoView.setCaminhoArquivo(objeto[2] == null ? "" : objeto[2].toString());
 			candidatos.add(candidatoView);		
 		} 
 		return candidatos;
