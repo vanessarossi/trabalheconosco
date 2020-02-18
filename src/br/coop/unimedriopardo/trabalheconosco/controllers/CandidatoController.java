@@ -125,7 +125,7 @@ public class CandidatoController {
 	
 	@PostMapping("/cadastrar")
 	public String cadastrar(Model model, Candidato candidato) {
-		Candidato candidatoPesquisado = candidatoService.pesquisarCandidatoPorCpf(candidato.getCpf());	
+		Candidato candidatoPesquisado = candidatoService.pesquisarCandidatoPorCpf(candidato.getCpf().trim().replace(".", ""));	
 		if (candidatoPesquisado == null) {
 			model.addAttribute("estados",candidatoService.pesquisarEstado());
 			model.addAttribute("cargos", candidatoService.pesquisarCargos());

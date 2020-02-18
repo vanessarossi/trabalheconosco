@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,7 +31,7 @@ public class Candidato {
 	private Long id;
 
 	@NotBlank
-	@Column(name = "cpf", length = 20)
+	@Column(name = "cpf", length = 20, unique=true)
 	private String cpf;
 
 	@NotBlank

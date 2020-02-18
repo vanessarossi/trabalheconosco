@@ -19,7 +19,7 @@ public class Usuario {
 	private Long id;
 	
 	@NotBlank
-	@Column(name="login", length=50)
+	@Column(name="login", length=50, unique=true)
 	private String login;
 	
 	@NotBlank
