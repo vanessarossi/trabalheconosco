@@ -42,7 +42,7 @@
 	<!-- Spring data -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://192.168.0.216/trabalheconosco??useTimezone=true&amp;serverTimezone=UTC"></property>
+		<property name="url" value="jdbc:mysql://186.200.53.252/trabalheconosco??useTimezone=true&amp;serverTimezone=UTC"></property>
 		<property name="username" value="trabalheconosco"></property>
 		<property name="password" value="#trabalheconosco#250"></property>
 	</bean>
